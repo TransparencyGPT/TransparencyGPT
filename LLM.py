@@ -26,6 +26,7 @@ def loadArticle(article):
 
     return text
 
+#this is not yet enabled fully or set up.
 def callAndResponse():
     selected_information = input("What information do you want to extract? ")
     prompt = "Can you extract the " + selected_information + " from this article: " + loadArticle(article)

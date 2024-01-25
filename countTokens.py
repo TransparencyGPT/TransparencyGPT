@@ -1,5 +1,7 @@
 import tiktoken
 
+# this is for when we do set up OpenAI so we know how many tokens each message is going to take
+# and hopefully we pivot accordingly 
 def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
     """Return the number of tokens used by a list of messages."""
     try:
