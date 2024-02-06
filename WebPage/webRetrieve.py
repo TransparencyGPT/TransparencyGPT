@@ -37,8 +37,8 @@ def main():
     save_webpage_as_pdf(url)
     author_name = get_author_from_webpage(url)
     webpage_text = get_webpage_text(url)
-    #print(f"Author: {author_name}")
-    #print(f"Text: {webpage_text}")
+    print(f"Author: {author_name}")
+    print(f"Text: {webpage_text}")
     print(f"PDF is saved as output.pdf. Run LLM.py to see pdf's text.")
     
     
