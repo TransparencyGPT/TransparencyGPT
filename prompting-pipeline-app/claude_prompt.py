@@ -65,7 +65,7 @@ def bias_analysis(text):
 
     prompt2 = "As a language model, can you identify the subjectivity score from the following prompt \
         and specify it without a sentence (like: subjectivity score = 4/10). Also, summarize the analysis \
-        contained within the prompt in one paragraph, focusing on the overall tone, strength of language and \
+        contained within the prompt in three sentences, focusing on the overall tone, strength of language and \
         overall subjectivity. Remove any redundancy from your answer. Do not specify the overall subjectivity \
         score again in the last line of your answer. "
 
