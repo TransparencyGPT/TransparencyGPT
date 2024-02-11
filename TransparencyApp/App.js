@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import AnalysisComponent from "./analysiscomponent";
+import AnalysisComponent from "./claudeanalysis";
 
 export default function App() {
   return (
