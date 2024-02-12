@@ -21,7 +21,9 @@ def analyze_text():
     parsed = data.get("data")
     articleTopic = parsed.get("articleTopic")
     newsSource = parsed.get("newsSource")
-    print(articleTopic, newsSource)
+
+    newsSource = newsSource.replace(" ", "-")
+    print(newsSource)
     try:
         articles = api.get_everything(q=articleTopic, sources=newsSource)
         recent_article = articles["articles"][0]
@@ -38,8 +40,6 @@ def analyze_text():
     article_text = ""
     for paragraph in soup.find_all("p"):
         article_text += paragraph.get_text().strip() + " "
-
-    print(article_text)
     if not article_text:
         return jsonify({"error": "No article provided"}), 400
 
