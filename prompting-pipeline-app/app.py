@@ -22,16 +22,18 @@ def analyze_text():
     articleTopic = parsed.get("articleTopic")
     newsSource = parsed.get("newsSource")
     print(articleTopic, newsSource)
-    articles = api.get_everything(q=articleTopic, sources=newsSource)
-    recent_article = articles["articles"][0]
+    try:
+        articles = api.get_everything(q=articleTopic, sources=newsSource)
+        recent_article = articles["articles"][0]
+    except:
+        return jsonify({"error": "No article provided"}), 400
+
     article = recent_article.get("content")
     url = recent_article.get("url")
-    print(url)
 
     response2 = requests.get(url)
     html_content = response2.text
     soup = BeautifulSoup(html_content, "html.parser")
-    print(soup)
 
     article_text = ""
     for paragraph in soup.find_all("p"):
