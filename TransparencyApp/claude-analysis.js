@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-    height: 50, // Ensure the button has a fixed height for the loader
-    width: 250, // Standard width for better aesthetics
+    height: "auto", // Ensure the button has a fixed height for the loader
+    width: "auto", // Standard width for better aesthetics
   },
   buttonText: {
     color: "white",
