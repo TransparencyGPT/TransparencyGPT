@@ -4,6 +4,8 @@ from claude_prompt import bias_analysis
 from combined_prompt import extract_transparency
 from newsapi import NewsApiClient
 
+import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 CORS(app)
@@ -19,16 +21,27 @@ def analyze_text():
     parsed = data.get("data")
     articleTopic = parsed.get("articleTopic")
     newsSource = parsed.get("newsSource")
-
     print(articleTopic, newsSource)
     articles = api.get_everything(q=articleTopic, sources=newsSource)
     recent_article = articles["articles"][0]
     article = recent_article.get("content")
+    url = recent_article.get("url")
+    print(url)
 
-    if not article:
+    response2 = requests.get(url)
+    html_content = response2.text
+    soup = BeautifulSoup(html_content, "html.parser")
+    print(soup)
+
+    article_text = ""
+    for paragraph in soup.find_all("p"):
+        article_text += paragraph.get_text().strip() + " "
+
+    print(article_text)
+    if not article_text:
         return jsonify({"error": "No article provided"}), 400
 
-    subjectivity_score, topics, text_analysis = bias_analysis(article)
+    subjectivity_score, topics, text_analysis = bias_analysis(article_text)
 
     return jsonify(
         {
