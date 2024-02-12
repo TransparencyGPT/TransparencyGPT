@@ -9,7 +9,7 @@ def web_analysis(author, url, topics):
     # It returns the combined answer and the token count.
 
     # Set up OpenAI API credentials (add API key)
-    openai.api_key = "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"
+    openai.api_key = "YOUR_API_KEY"
 
     # Define prompts and hyperparameters
     HUMAN_PROMPT = "Human: "
