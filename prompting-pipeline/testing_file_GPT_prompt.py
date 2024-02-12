@@ -10,7 +10,7 @@ def web_analysis(author, url, topics):
     # counts the tokens used by the overall function.
     # It returns the combined answer and the token count.
 
-    openai.api_key = "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"
+    openai.api_key = "add_your_key_here"
 
     # client = OpenAI(
     #     api_key=os.environ.get(api_key)
