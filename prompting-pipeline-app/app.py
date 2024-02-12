@@ -8,9 +8,6 @@ CORS(app)
 
 @app.route('/analyze', methods=['POST'])
 
-
-
-
 def analyze_text():
     print("Received request:", request.json)
     data = request.json
