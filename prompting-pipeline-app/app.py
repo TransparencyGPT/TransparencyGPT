@@ -2,28 +2,44 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from claude_prompt import bias_analysis
 from combined_prompt import extract_transparency
+from newsapi import NewsApiClient
+
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/analyze', methods=['POST'])
 
+@app.route("/analyze", methods=["POST"])
 def analyze_text():
-    print("Received request:", request.json)
+
+    api_key = "25d4e4d5fa0444b7bcbdae7c333b55f0"
+    api = NewsApiClient(api_key=api_key)
+    print("Received request:")
     data = request.json
-    article = data.get('article')
+    parsed = data.get("data")
+    articleTopic = parsed.get("articleTopic")
+    newsSource = parsed.get("newsSource")
+
+    print(articleTopic, newsSource)
+    articles = api.get_everything(q=articleTopic, sources=newsSource)
+    recent_article = articles["articles"][0]
+    article = recent_article.get("content")
+
     if not article:
         return jsonify({"error": "No article provided"}), 400
-    
-    subjectivity_score, topics, text_analysis = bias_analysis(article)
-    
-    return jsonify({
-        "topics": topics,
-        "subjectivity_score": subjectivity_score,
-        "analysis": text_analysis
-    })
 
-if __name__ == '__main__':
+    subjectivity_score, topics, text_analysis = bias_analysis(article)
+
+    return jsonify(
+        {
+            "topics": topics,
+            "subjectivity_score": subjectivity_score,
+            "analysis": text_analysis,
+        }
+    )
+
+
+if __name__ == "__main__":
     app.run(debug=True)
 
 """def combined_analysis():

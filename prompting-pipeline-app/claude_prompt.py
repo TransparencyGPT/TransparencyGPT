@@ -6,8 +6,9 @@ import re
 # to try the claude prompt on different texts, and ensure
 # it returns the desired output.
 # Import data from external file
-#file_path = 'text1.json'
-#title, author, url, article = import_json_data(file_path)
+# file_path = 'text1.json'
+# title, author, url, article = import_json_data(file_path)
+
 
 def bias_analysis(text):
     # This function makes chained prompts to Claude to extract
@@ -17,10 +18,10 @@ def bias_analysis(text):
     def extract_subjectivity(answer):
         # This function extract the subjectivity score from
         # Claude's answer to the second prompt. It uses non
-        # case-sensitive pattern recognition to find the subjectivity 
+        # case-sensitive pattern recognition to find the subjectivity
         # score and returns it as an Int. If it cannot find it, it
         # will return -1.
-        pattern = re.compile(r'Subjectivity score\s*[:=]\s*(\d+)/\d+', re.IGNORECASE)
+        pattern = re.compile(r"Subjectivity score\s*[:=]\s*(\d+)/\d+", re.IGNORECASE)
         match = re.search(pattern, answer)
         if match:
             subjectivity_score = int(match.group(1))
@@ -30,10 +31,10 @@ def bias_analysis(text):
         return subjectivity_score
 
     def extract_topics(answer):
-        # This function extract the topics from Claude's answer 
-        # to the first prompt. It uses non case-sensitive word 
-        # recognition to find the list of topics. If it cannot 
-        # find it, it will return 'all topics' so that the 
+        # This function extract the topics from Claude's answer
+        # to the first prompt. It uses non case-sensitive word
+        # recognition to find the list of topics. If it cannot
+        # find it, it will return 'all topics' so that the
         # following prompts using the topics parameter can still
         # run correctly. This code might need to be made more robust
         # since it will sometimes miss the topics due to difference in
@@ -50,11 +51,11 @@ def bias_analysis(text):
             topics_string = topics_line[topics_start_index:].strip()
             # Split the topics into an array
             topics = [topic.strip() for topic in topics_string.split(",")]
-            string_topics = ', '.join(topics)
+            string_topics = ", ".join(topics)
             return string_topics
         else:
-            return ['all topics']
-        
+            return ["all topics"]
+
     # Prompts
     prompt1 = "As a language model, can you analyze this text and identify the overall subjective tone of the article, \
         analyze the language used to assess potential biases, and extract underlying opinions through the author's \
@@ -71,24 +72,24 @@ def bias_analysis(text):
 
     # API key parameter
     anthropic = Anthropic(
-    api_key="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",
+        api_key="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",
     )
 
     # Model definition and hyperparameters
-    model="claude-2.1"
-    temperature=0.2 # between 0 (more factual) and 1 (more creative)
+    model = "claude-2.1"
+    temperature = 0.2  # between 0 (more factual) and 1 (more creative)
 
     # Prompt 1
     completion = anthropic.completions.create(
-    model=model,
-    max_tokens_to_sample=1000,
-    temperature=temperature, 
-    prompt=f"{HUMAN_PROMPT}{prompt1}{text}\n\n{AI_PROMPT}",
+        model=model,
+        max_tokens_to_sample=1000,
+        temperature=temperature,
+        prompt=f"{HUMAN_PROMPT}{prompt1}{text}\n\n{AI_PROMPT}",
     )
     answer_prompt1 = completion.completion
-    
-    '''The following print statements are there for debugging
-    purposes and are commented out when not debugging'''
+
+    """The following print statements are there for debugging
+    purposes and are commented out when not debugging"""
 
     # print("Answer prompt1 is: ", answer_prompt1)
     topics = extract_topics(answer_prompt1)
@@ -96,10 +97,10 @@ def bias_analysis(text):
 
     # Prompt 2
     completion = anthropic.completions.create(
-    model=model,
-    max_tokens_to_sample=1000,
-    temperature=temperature,
-    prompt=f"{HUMAN_PROMPT}{prompt2}{answer_prompt1}\n\n{AI_PROMPT}",
+        model=model,
+        max_tokens_to_sample=1000,
+        temperature=temperature,
+        prompt=f"{HUMAN_PROMPT}{prompt2}{answer_prompt1}\n\n{AI_PROMPT}",
     )
     answer_prompt2 = completion.completion
 
@@ -110,10 +111,11 @@ def bias_analysis(text):
     return subjectivity_score, topics, answer_prompt2
     # print(completion.completion)
 
+
 # These lines are there for testing purposes. You can run this python file
 # independently to see the output from a particular article.
-#subjectivity_score, topics, text_analysis = bias_analysis(article)
+# subjectivity_score, topics, text_analysis = bias_analysis(article)
 
-#print("topics are: ", topics)
-#print("subjectivity_score is: ", subjectivity_score)
-#print("final_answer is: ", text_analysis)
+# print("topics are: ", topics)
+# print("subjectivity_score is: ", subjectivity_score)
+# print("final_answer is: ", text_analysis)
