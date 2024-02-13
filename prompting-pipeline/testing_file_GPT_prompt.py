@@ -1,4 +1,6 @@
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key="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")
 import os
 from openai import OpenAI
 import tiktoken
@@ -10,7 +12,6 @@ def web_analysis(author, url, topics):
     # counts the tokens used by the overall function.
     # It returns the combined answer and the token count.
 
-    openai.api_key = "add_your_key_here"
 
     # client = OpenAI(
     #     api_key=os.environ.get(api_key)
@@ -28,8 +29,8 @@ def web_analysis(author, url, topics):
 
     # Define your prompts
     website_prompt = f"Find any general information about the website associated with {url} related \
-        to the topics {topics}. Also include any political or financial affiliations the website has. \
-        Is there anything about the website that indicates that it might carry a particular bias regarding \
+       to the topics {topics} and Also include any political or financial affiliations the website has. \
+    Is there anything about the website that indicates that it might carry a particular bias regarding \
         the topics mentioned?"
     author_prompt = f"Find any biographical information about {author} related to the topics: {topics}? \
         Also include any political or financial affiliations the author may have. Is there anything \
@@ -46,17 +47,18 @@ def web_analysis(author, url, topics):
         a particular bias regarding the topics mentioned, or anything that would suggest a conflict of interest?"
 
     # Make API calls to generate completions
-    response1 = openai.chat.completions.create(
-        model="gpt-4",
-        temperature=temperature,
-        messages=[
-            {
-                "role": "user",
-                "content": website_prompt,
-            }
-        ],
-    )
-    website_info = response1.choices[0].message.content
+    response1 = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+    temperature=temperature,
+    messages=[
+        {
+        
+            "role": "user",
+            "content": website_prompt,
+        }
+    ])
+    
+    website_info = response1.choices[0].message.content.strip()
 
     # response2 = openai.Completion.create(
     #     engine=model,
@@ -87,7 +89,7 @@ def web_analysis(author, url, topics):
 
     # Count the tokens in the combined text
     # combined_text = f"{HUMAN_PROMPT}{website_prompt}\n\n{AI_PROMPT}{website_info}\n\n{HUMAN_PROMPT}{author_prompt}\n\n{AI_PROMPT}{author_info}\n\n{HUMAN_PROMPT}{audience_prompt}\n\n{AI_PROMPT}{audience_info}\n\n{HUMAN_PROMPT}{subsidiary_prompt}\n\n{AI_PROMPT}{subsidiary_info}"
-    token_count = tiktoken.Tiktoken().count(website_info)
+    token_count = response1.usage.total_tokens
 
     return website_info, token_count
 

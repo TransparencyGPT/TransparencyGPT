@@ -1,5 +1,7 @@
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key="YOUR_API_KEY")
 import tiktoken
 import json
 import re
@@ -25,7 +27,6 @@ def extract_transparency(file_path):
     combined_answer = text_analysis + "\n" + GPT_answer
 
     # Make one last prompt to chatGPT to reformat the final answer
-    openai.api_key = "YOUR_API_KEY"
 
     # Define prompts and hyperparameters for chatGPT
     HUMAN_PROMPT = "Human: "
@@ -40,12 +41,10 @@ def extract_transparency(file_path):
         Remove any part that mention that they weren't able to obtain a certain kind of \
         information and only keep elements that contain real information: {combined_answer}"
 
-    final_response = openai.Completion.create(
-        engine=model,
-        prompt=f"{HUMAN_PROMPT}{final_prompt}\n\n{AI_PROMPT}",
-        max_tokens=1000,
-        temperature=temperature,
-    )
+    final_response = client.completions.create(engine=model,
+    prompt=f"{HUMAN_PROMPT}{final_prompt}\n\n{AI_PROMPT}",
+    max_tokens=1000,
+    temperature=temperature)
     final_answer = final_response.choices[0].text.strip()
 
     return subjectivity_score, final_answer, GPT_token_count

@@ -1,4 +1,6 @@
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key="YOUR_API_KEY")
 import tiktoken
 
 
@@ -9,7 +11,6 @@ def web_analysis(author, url, topics):
     # It returns the combined answer and the token count.
 
     # Set up OpenAI API credentials (add API key)
-    openai.api_key = "YOUR_API_KEY"
 
     # Define prompts and hyperparameters
     HUMAN_PROMPT = "Human: "
@@ -41,36 +42,28 @@ def web_analysis(author, url, topics):
         a particular bias regarding the topics mentioned, or anything that would suggest a conflict of interest?"
 
     # Make API calls to generate completions
-    response1 = openai.Completion.create(
-        engine=model,
-        prompt=f"{HUMAN_PROMPT}{website_prompt}\n\n{AI_PROMPT}",
-        max_tokens=1000,
-        temperature=temperature,
-    )
+    response1 = client.completions.create(engine=model,
+    prompt=f"{HUMAN_PROMPT}{website_prompt}\n\n{AI_PROMPT}",
+    max_tokens=1000,
+    temperature=temperature)
     website_info = response1.choices[0].text.strip()
 
-    response2 = openai.Completion.create(
-        engine=model,
-        prompt=f"{HUMAN_PROMPT}{subsidiary_prompt}\n\n{AI_PROMPT}",
-        max_tokens=1000,
-        temperature=temperature,
-    )
+    response2 = client.completions.create(engine=model,
+    prompt=f"{HUMAN_PROMPT}{subsidiary_prompt}\n\n{AI_PROMPT}",
+    max_tokens=1000,
+    temperature=temperature)
     subsidiary_info = response2.choices[0].text.strip()
 
-    response3 = openai.Completion.create(
-        engine=model,
-        prompt=f"{HUMAN_PROMPT}{author_prompt}\n\n{AI_PROMPT}",
-        max_tokens=1000,
-        temperature=temperature,
-    )
+    response3 = client.completions.create(engine=model,
+    prompt=f"{HUMAN_PROMPT}{author_prompt}\n\n{AI_PROMPT}",
+    max_tokens=1000,
+    temperature=temperature)
     author_info = response3.choices[0].text.strip()
 
-    response4 = openai.Completion.create(
-        engine=model,
-        prompt=f"{HUMAN_PROMPT}{audience_prompt}\n\n{AI_PROMPT}",
-        max_tokens=1000,
-        temperature=temperature,
-    )
+    response4 = client.completions.create(engine=model,
+    prompt=f"{HUMAN_PROMPT}{audience_prompt}\n\n{AI_PROMPT}",
+    max_tokens=1000,
+    temperature=temperature)
     audience_info = response4.choices[0].text.strip()
 
     # Combine all the ananlyses.
