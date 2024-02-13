@@ -60,7 +60,7 @@ function FinalAnalysis() {
           {isLoading ? (
             <ActivityIndicator color="#FFF" />
           ) : (
-            <Text style={styles.buttonText}>Analyze Preloaded Text</Text>
+            <Text style={styles.buttonText}>Analyze Article</Text>
           )}
         </TouchableOpacity>
       )}
