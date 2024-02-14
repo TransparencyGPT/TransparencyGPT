@@ -8,6 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import axios from "axios";
+import * as Clipboard from 'expo-clipboard';
 
 function AnalysisComponent() {
   const [analysisResult, setAnalysisResult] = useState(null);
@@ -34,26 +35,27 @@ function AnalysisComponent() {
       setIsLoading(false); // End loading
     }
   };
-  
+
   const getInfo = async () => {
     fetchAnalysis("inputs");
   }
 
 
   const getURL = async () => {
-
     fetchAnalysis("url");
   }
-
-  
-
-
 
 
   const resetAnalysis = () => {
     setAnalysisResult(null);
     setIsAnalyzed(false);
   };
+
+  const pasteURL = async () => {
+    const text = await Clipboard.getStringAsync();
+    changeURL(text)
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -80,7 +82,7 @@ function AnalysisComponent() {
         placeholder="URL"
       />
 
-
+<TouchableOpacity style={styles.button} onPress={pasteURL}><Text>Paste URL</Text></TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={getInfo}
