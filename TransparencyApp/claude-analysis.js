@@ -16,10 +16,11 @@ function AnalysisComponent() {
 
   const [articleTopic, changeArticle] = React.useState('');
   const [newsSource, changeNews] = React.useState('');
+  const [url, changeURL] = React.useState('');
 
-  const fetchAnalysis = async () => {
+  const fetchAnalysis = async (inputType) => {
     setIsLoading(true); // Begin loading
-    let dictionary = {"articleTopic": articleTopic, "newsSource": newsSource }
+    let dictionary = {"articleTopic": articleTopic, "newsSource": newsSource, "input_type": inputType, "url": url}
     try {
       const response = await axios.post("http://127.0.0.1:5000/analyze", {
         data: dictionary,
@@ -33,6 +34,21 @@ function AnalysisComponent() {
       setIsLoading(false); // End loading
     }
   };
+  
+  const getInfo = async () => {
+    fetchAnalysis("inputs");
+  }
+
+
+  const getURL = async () => {
+
+    fetchAnalysis("url");
+  }
+
+  
+
+
+
 
   const resetAnalysis = () => {
     setAnalysisResult(null);
@@ -57,19 +73,41 @@ function AnalysisComponent() {
         placeholder="News Source"
       />
 
+<TextInput
+        style={styles.input}
+        onChangeText={changeURL}
+        value={url}
+        placeholder="URL"
+      />
+
+
         <TouchableOpacity
           style={styles.button}
-          onPress={fetchAnalysis}
+          onPress={getInfo}
           disabled={isLoading}
         >
           {isLoading ? (
             <ActivityIndicator color="#FFF" />
           ) : (
             <Text style={styles.buttonText}>
-              Analyze Preloaded Text for Subjectivity
+              Analyze Selected Source
             </Text>
           )}
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={getURL}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ActivityIndicator color="#FFF" />
+          ) : (
+            <Text style={styles.buttonText}>
+              Analyze URL
+            </Text>
+          )}
+        </TouchableOpacity>
+
         </>
       )}
       {isAnalyzed && (
@@ -151,3 +189,4 @@ const styles = StyleSheet.create({
 });
 
 export default AnalysisComponent;
+

@@ -21,17 +21,21 @@ def analyze_text():
     parsed = data.get("data")
     articleTopic = parsed.get("articleTopic")
     newsSource = parsed.get("newsSource")
+    input_type = parsed.get("input_type")
 
     newsSource = newsSource.replace(" ", "-")
-    print(newsSource)
-    try:
-        articles = api.get_everything(q=articleTopic, sources=newsSource)
-        recent_article = articles["articles"][0]
-    except:
-        return jsonify({"error": "No article provided"}), 400
 
-    article = recent_article.get("content")
-    url = recent_article.get("url")
+    if input_type != "url":
+        try:
+            articles = api.get_everything(q=articleTopic, sources=newsSource)
+            recent_article = articles["articles"][0]
+            article = recent_article.get("content")
+            url = recent_article.get("url")
+        except:
+            return jsonify({"error": "No article provided"}), 400
+    else:
+        url = parsed.get("url")
+        print(url)
 
     response2 = requests.get(url)
     html_content = response2.text
