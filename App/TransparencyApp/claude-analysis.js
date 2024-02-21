@@ -8,20 +8,25 @@ import {
   TextInput,
 } from "react-native";
 import axios from "axios";
-import * as Clipboard from 'expo-clipboard';
+import * as Clipboard from "expo-clipboard";
 
 function AnalysisComponent() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
-  const [articleTopic, changeArticle] = React.useState('');
-  const [newsSource, changeNews] = React.useState('');
-  const [url, changeURL] = React.useState('');
+  const [articleTopic, changeArticle] = React.useState("");
+  const [newsSource, changeNews] = React.useState("");
+  const [url, changeURL] = React.useState("");
 
   const fetchAnalysis = async (inputType) => {
     setIsLoading(true); // Begin loading
-    let dictionary = {"articleTopic": articleTopic, "newsSource": newsSource, "input_type": inputType, "url": url}
+    let dictionary = {
+      articleTopic: articleTopic,
+      newsSource: newsSource,
+      input_type: inputType,
+      url: url,
+    };
     try {
       const response = await axios.post("http://127.0.0.1:5000/analyze", {
         data: dictionary,
@@ -29,7 +34,8 @@ function AnalysisComponent() {
       setAnalysisResult(response.data); // Set the result from the API response
       setIsAnalyzed(true); // Mark the analysis as done
     } catch (error) {
-      console.error("Error fetching analysis:", error);123
+      console.error("Error fetching analysis:", error);
+      123;
       setAnalysisResult({ error: "Failed to fetch analysis" });
     } finally {
       setIsLoading(false); // End loading
@@ -38,13 +44,11 @@ function AnalysisComponent() {
 
   const getInfo = async () => {
     fetchAnalysis("inputs");
-  }
-
+  };
 
   const getURL = async () => {
     fetchAnalysis("url");
-  }
-
+  };
 
   const resetAnalysis = () => {
     setAnalysisResult(null);
@@ -53,63 +57,58 @@ function AnalysisComponent() {
 
   const pasteURL = async () => {
     const text = await Clipboard.getStringAsync();
-    changeURL(text)
+    changeURL(text);
   };
-  
 
   return (
     <View style={styles.container}>
       {!isAnalyzed && (
-      <>
-      <TextInput
-        style={styles.input}
-        onChangeText={changeArticle}
-        value={articleTopic}
-        placeholder="Article Title"
-        
-      />
-        <TextInput
-        style={styles.input}
-        onChangeText={changeNews}
-        value={newsSource}
-        placeholder="News Source"
-      />
+        <>
+          <TextInput
+            style={styles.input}
+            onChangeText={changeArticle}
+            value={articleTopic}
+            placeholder="Article Title"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={changeNews}
+            value={newsSource}
+            placeholder="News Source"
+          />
 
-<TextInput
-        style={styles.input}
-        onChangeText={changeURL}
-        value={url}
-        placeholder="URL"
-      />
+          <TextInput
+            style={styles.input}
+            onChangeText={changeURL}
+            value={url}
+            placeholder="URL"
+          />
 
-<TouchableOpacity style={styles.button} onPress={pasteURL}><Text>Paste URL</Text></TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={getInfo}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <ActivityIndicator color="#FFF" />
-          ) : (
-            <Text style={styles.buttonText}>
-              Analyze Selected Source
-            </Text>
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={getURL}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <ActivityIndicator color="#FFF" />
-          ) : (
-            <Text style={styles.buttonText}>
-              Analyze URL
-            </Text>
-          )}
-        </TouchableOpacity>
-
+          <TouchableOpacity style={styles.button} onPress={pasteURL}>
+            <Text>Paste URL</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={getInfo}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#FFF" />
+            ) : (
+              <Text style={styles.buttonText}>Analyze Selected Source</Text>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={getURL}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#FFF" />
+            ) : (
+              <Text style={styles.buttonText}>Analyze URL</Text>
+            )}
+          </TouchableOpacity>
         </>
       )}
       {isAnalyzed && (
@@ -182,13 +181,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-      width: "100%",
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    width: "100%",
   },
 });
 
 export default AnalysisComponent;
-
