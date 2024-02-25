@@ -30,11 +30,6 @@ export default function App() {
   let displayError = () => {
     const createTwoButtonAlert = () =>
       Alert.alert("Invalid Article!", "Please Try Again!", [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
         { text: "OK", onPress: () => console.log("OK Pressed") },
       ]);
     createTwoButtonAlert();
