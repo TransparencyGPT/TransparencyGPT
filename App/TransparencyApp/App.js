@@ -3,7 +3,7 @@ import FinalAnalysis from "./analysis";
 import InputInterface from "./interface";
 import Search from "./search";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,6 +12,7 @@ import {
   Switch,
   Button,
   Pressable,
+  Alert,
 } from "react-native";
 
 export default function App() {
@@ -25,6 +26,19 @@ export default function App() {
   const [articleTopic, changeArticle] = React.useState("");
   const [newsSource, changeNews] = React.useState("");
   const [url, changeURL] = React.useState("");
+
+  let displayError = () => {
+    const createTwoButtonAlert = () =>
+      Alert.alert("Invalid Article!", "Please Try Again!", [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    createTwoButtonAlert();
+  };
 
   let searchButton = () => {
     if (!isLoading) {
@@ -76,6 +90,7 @@ export default function App() {
             newsSource={newsSource}
             url={url}
             searchURL={searchURL}
+            displayError={displayError}
           ></Search>
         </View>
       </View>
