@@ -9,6 +9,7 @@ import {
   Pressable,
   TextInput,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 
 function FinalAnalysis(props) {
@@ -20,11 +21,23 @@ function FinalAnalysis(props) {
   if (props.isLoading) {
     return (
       <SafeAreaView style={styles.background}>
-        <View style={styles.container}>
+        <View style={styles.containerEmpty}>
           <View style={styles.titleView}>
             <Text style={styles.analysisHead}>Analysis Result</Text>
           </View>
-          <View style={styles.middleView}></View>
+
+          <View style={styles.middleView}>
+            <ScrollView style={styles.scroll}>
+              <View style={styles.innerMiddleView}>
+                <View style={styles.sectionView}>
+                  <Text style={styles.content}></Text>
+                </View>
+                <View style={styles.sectionView}></View>
+                <View style={styles.sectionView}></View>
+              </View>
+            </ScrollView>
+          </View>
+
           <View style={styles.buttomView}>
             <Pressable style={styles.buttonContainer} onPress={backButton}>
               <ActivityIndicator color="#FFF" />
@@ -47,21 +60,26 @@ function FinalAnalysis(props) {
           <Text style={styles.analysisHead}>Analysis Result</Text>
         </View>
         <View style={styles.middleView}>
-          <View style={styles.sectionView}>
-            <Text style={styles.subsection}>Score:</Text>
-            <Text style={styles.content}>
-              {props.analysisResult.subjectivity_score}/10
-            </Text>
-          </View>
-          <View style={styles.sectionView}>
-            <Text style={styles.subsection}>Source Analysis:</Text>
-            <Text style={styles.content}>{source_text}</Text>
-          </View>
-          <View style={styles.sectionView}>
-            <Text style={styles.subsection}>Article Analysis:</Text>
-            <Text style={styles.content}>{article_text}</Text>
-          </View>
+          <ScrollView style={styles.scroll}>
+            <View style={styles.innerMiddleView}>
+              <View style={styles.sectionView}>
+                <Text style={styles.subsection}>Score:</Text>
+                <Text style={styles.content}>
+                  {props.analysisResult.subjectivity_score}/10
+                </Text>
+              </View>
+              <View style={styles.sectionView}>
+                <Text style={styles.subsection}>Source Analysis:</Text>
+                <Text style={styles.content}>{source_text}</Text>
+              </View>
+              <View style={styles.sectionView}>
+                <Text style={styles.subsection}>Article Analysis:</Text>
+                <Text style={styles.content}>{article_text}</Text>
+              </View>
+            </View>
+          </ScrollView>
         </View>
+
         <View style={styles.buttomView}>
           <Pressable style={styles.buttonContainer} onPress={backButton}>
             <Text style={styles.buttonText}>BACK</Text>
@@ -82,12 +100,24 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "#E1D6BC",
     height: "93%",
-    width: "93%",
     padding: 14,
   },
 
+  containerEmpty: {
+    borderRadius: 12,
+    backgroundColor: "#E1D6BC",
+    height: "93%",
+    padding: 14,
+    width: "93%",
+  },
+
   titleView: { flex: 1.03, alignItems: "center" },
-  middleView: { flex: 5 },
+
+  middleView: { flex: 8 },
+
+  scroll: {},
+  innerMiddleView: { width: "93%" },
+
   buttomView: {
     flex: 2,
     justifyContent: "center",
