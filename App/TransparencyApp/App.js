@@ -1,5 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-import SubjectivityComponent from "./claude-analysis";
 import FinalAnalysis from "./analysis";
 import InputInterface from "./interface";
 import Search from "./search";

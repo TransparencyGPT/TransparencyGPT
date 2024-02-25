@@ -5,7 +5,7 @@ import tiktoken
 import json
 import re
 from text_import import import_json_data
-from testing_file_GPT_prompt_v2 import web_analysis
+from GPT_prompt import web_analysis
 from claude_prompt import bias_analysis
 
 # Updated 02/13/24 - 3:55PM

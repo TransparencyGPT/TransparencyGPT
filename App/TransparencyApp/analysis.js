@@ -34,9 +34,11 @@ function FinalAnalysis(props) {
       </SafeAreaView>
     );
   }
-  let analysisText = props.analysisResult.analysis;
-  let spaces = analysisText.indexOf("\n\n");
-  let text = analysisText.substring(spaces + 2);
+  let article_analysis = props.analysisResult.text_analysis;
+  let article_spaces = article_analysis.indexOf("\n\n");
+  let article_text = article_analysis.substring(article_spaces + 2);
+
+  let source_text = props.analysisResult.GPT_answer;
 
   return (
     <SafeAreaView style={styles.background}>
@@ -52,12 +54,12 @@ function FinalAnalysis(props) {
             </Text>
           </View>
           <View style={styles.sectionView}>
-            <Text style={styles.subsection}>Topics:</Text>
-            <Text style={styles.content}>{props.analysisResult.topics}</Text>
+            <Text style={styles.subsection}>Source Analysis:</Text>
+            <Text style={styles.content}>{source_text}</Text>
           </View>
           <View style={styles.sectionView}>
-            <Text style={styles.subsection}>Analysis:</Text>
-            <Text style={styles.content}>{text}</Text>
+            <Text style={styles.subsection}>Article Analysis:</Text>
+            <Text style={styles.content}>{article_text}</Text>
           </View>
         </View>
         <View style={styles.buttomView}>
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
   titleView: { flex: 1.03, alignItems: "center" },
   middleView: { flex: 5 },
   buttomView: {
-    flex: 3,
+    flex: 2,
     justifyContent: "center",
     alignItems: "center",
   },

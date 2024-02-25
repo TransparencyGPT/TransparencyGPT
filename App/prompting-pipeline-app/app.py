@@ -41,19 +41,31 @@ def analyze_text():
     html_content = response2.text
     soup = BeautifulSoup(html_content, "html.parser")
 
+     # Corrected approach for extracting title
+    title_tag = soup.find('meta', property='og:title') or soup.find('title')
+    title = title_tag['content'] if title_tag and 'content' in title_tag.attrs else title_tag.text if title_tag else None
+
+    # Corrected approach for extracting author
+    # Here we avoid using lambda in a conflicting way with the 'name' parameter
+    author_tag = soup.find('meta', attrs={'name': lambda x: x and 'author' in x.lower()})
+    author = author_tag['content'] if author_tag and 'content' in author_tag.attrs else None
+
+
     article_text = ""
     for paragraph in soup.find_all("p"):
         article_text += paragraph.get_text().strip() + " "
+
     if not article_text:
         return jsonify({"error": "No article provided"}), 400
 
-    subjectivity_score, topics, text_analysis = bias_analysis(article_text)
+    subjectivity_score, text_analysis, GPT_answer, GPT_token_count = extract_transparency(title, article_text, author, url)
 
     return jsonify(
         {
-            "topics": topics,
             "subjectivity_score": subjectivity_score,
-            "analysis": text_analysis,
+            "text_analysis": text_analysis,
+            "GPT_answer": GPT_answer,
+            "GPT_token_count": GPT_token_count,
         }
     )
 
