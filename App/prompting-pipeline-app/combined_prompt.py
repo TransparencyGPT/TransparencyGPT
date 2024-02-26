@@ -15,9 +15,10 @@ def extract_transparency(title, article, author, url):
     It returns the subjectivity score as an Int, the final answer,
     and the token count for GPT4 only (can be applied to claude and
     chatGPT as well if necessary later).'''
+    # WHEN TESTING AND DEVELOPING, SET devMode TO TRUE 
 
     subjectivity_score, topics, text_analysis = bias_analysis(article)
-    GPT_answer, GPT_token_count = web_analysis(author, url, topics, True)
+    GPT_answer, GPT_token_count = web_analysis(author, url, topics, devMode=True)
     #combined_answer = text_analysis + "\n" + GPT_answer
 
     # Define model name and hyperparameters

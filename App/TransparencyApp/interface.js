@@ -10,11 +10,29 @@ import {
   TextInput,
 } from "react-native";
 import * as Clipboard from "expo-clipboard";
+import Shadows from "./shadow";
+import Fonts from "./fonts";
+import Colors from "./colors";
+import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 function InputInterface(props) {
+  let [pasted, setPasted] = useState(false);
+  const handleURLChange = (text) => {
+    props.changeURL(text);
+    // If the text is empty, reset the isPasted state to false
+    if (text === "") {
+      setPasted(false);
+    }
+  };
+
   const pasteURL = async () => {
     const text = await Clipboard.getStringAsync();
     props.changeURL(text);
+    if (text) {
+      setPasted(true); // Set the isPasted state to true only if text is not empty
+    }
   };
 
   return (
@@ -39,12 +57,22 @@ function InputInterface(props) {
         <>
           <TextInput
             style={styles.input}
-            onChangeText={props.changeURL}
+            onChangeText={handleURLChange}
             value={props.url}
             placeholder="🔎 URL..."
           />
           <Pressable style={styles.buttonContainer} onPress={pasteURL}>
-            <Text style={styles.buttonText}>PASTE</Text>
+            {pasted && (
+              <View style={styles.clipboard}>
+                <FontAwesome5 name="paste" size={24} color="black" />
+                <AntDesign name="check" size={24} color="black" />
+              </View>
+            )}
+            {!pasted && (
+              <View style={styles.clipboard}>
+                <FontAwesome name="paste" size={24} color="black" />
+              </View>
+            )}
           </Pressable>
         </>
       )}
@@ -55,29 +83,41 @@ function InputInterface(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     alignItems: "center",
+    padding: 20,
   },
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-
-    backgroundColor: "white",
-    width: "90%",
+    height: 50,
+    marginVertical: 10,
+    paddingHorizontal: 15,
+    borderWidth: 0,
+    borderRadius: 30,
+    backgroundColor: "#F5F5F5",
+    paddingBottom: 8,
+    width: "100%",
+    fontSize: 16,
+    color: "#333",
+    ...Fonts.loading,
   },
   buttonContainer: {
-    height: 40,
-    backgroundColor: "white",
-    width: 90,
-    borderRadius: 4,
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    ...Shadows.basicShadow,
   },
   buttonText: {
-    color: "black",
+    color: "white",
+    fontSize: 12,
+    ...Fonts.subtitle,
+  },
+  clipboard: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    ...Shadows.basicShadow,
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 10,
   },
 });
 

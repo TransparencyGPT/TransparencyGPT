@@ -95,17 +95,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    color: "white",
   },
   container: {
     borderRadius: 12,
-    backgroundColor: "#E1D6BC",
+    backgroundColor: "white",
     height: "93%",
     padding: 14,
   },
 
   containerEmpty: {
     borderRadius: 12,
-    backgroundColor: "#E1D6BC",
     height: "93%",
     padding: 14,
     width: "93%",

@@ -10,6 +10,8 @@ import {
   TextInput,
 } from "react-native";
 import axios from "axios";
+import Shadows from "./shadow";
+import Fonts from "./fonts";
 
 function Search(props) {
   const updateLoading = () => {
@@ -63,18 +65,19 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    backgroundColor: "#C33636",
+    backgroundColor: "white",
     width: 120,
     height: 40,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    ...Shadows.strongShadow,
   },
 
   buttonText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
+    ...Fonts.subtitle,
+    fontSize: 24,
+    color: "black",
   },
 });
 

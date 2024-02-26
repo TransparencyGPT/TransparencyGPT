@@ -5,6 +5,8 @@ import Search from "./search";
 import LoadingScreen from "./loading";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import Fonts from "./fonts";
+import Shadows from "./shadow";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -21,6 +23,7 @@ import {
 const fetchFonts = () => {
   return Font.loadAsync({
     Cutive: require("./assets/Cutive-Regular.ttf"),
+    Special: require("./assets/SpecialElite-Regular.ttf"),
   });
 };
 
@@ -52,34 +55,55 @@ export default function App() {
       createTwoButtonAlert();
     };
 
-    let searchButton = () => {
+    let toggleSearchMode = (mode) => {
       if (!isLoading) {
         changeURL("");
         changeNews("");
         changeArticle("");
-
-        if (searchURL == false) {
-          changeSearch(true);
-          changeTopButton("URL");
-        } else {
-          changeSearch(false);
-          changeTopButton("Article");
-        }
-      } else {
-        setIsLoading(false);
+        changeSearch(mode === "URL");
       }
     };
+
     if (isLoading) {
       return <LoadingScreen />;
     } else {
       if (!isAnalyzed && !isLoading) {
         return (
-          <View style={styles.container}>
-            <SafeAreaView style={styles.top}>
-              <Pressable style={styles.topButtom} onPress={searchButton}>
-                <Text style={styles.changeModeText}>{topButtom}</Text>
+          <SafeAreaView style={styles.container}>
+            <View style={styles.top}>
+              <Pressable
+                style={[
+                  styles.toggleButton,
+                  searchURL ? styles.activeButton : {},
+                ]}
+                onPress={() => toggleSearchMode("URL")}
+              >
+                <Text
+                  style={[
+                    styles.toggleButtonText,
+                    searchURL ? styles.activeButtonText : {},
+                  ]}
+                >
+                  URL
+                </Text>
               </Pressable>
-            </SafeAreaView>
+              <Pressable
+                style={[
+                  styles.toggleButton,
+                  !searchURL ? styles.activeButton : {},
+                ]}
+                onPress={() => toggleSearchMode("Article")}
+              >
+                <Text
+                  style={[
+                    styles.toggleButtonText,
+                    !searchURL ? styles.activeButtonText : {},
+                  ]}
+                >
+                  Article
+                </Text>
+              </Pressable>
+            </View>
             <View style={styles.titleSquare}>
               <Text style={styles.title}>TransparencyGPT</Text>
               <Text style={styles.title2}>Know what you are reading!</Text>
@@ -108,22 +132,20 @@ export default function App() {
                 displayError={displayError}
               ></Search>
             </View>
-          </View>
+          </SafeAreaView>
         );
       } else {
         return (
-          <View style={styles.analysis}>
-            <FinalAnalysis
-              articleTopic={articleTopic}
-              newsSource={newsSource}
-              url={url}
-              searchURL={searchURL}
-              isLoading={isLoading}
-              analysisResult={analysisResult}
-              setAnalysisResult={setAnalysisResult}
-              setIsAnalyzed={setIsAnalyzed}
-            ></FinalAnalysis>
-          </View>
+          <FinalAnalysis
+            articleTopic={articleTopic}
+            newsSource={newsSource}
+            url={url}
+            searchURL={searchURL}
+            isLoading={isLoading}
+            analysisResult={analysisResult}
+            setAnalysisResult={setAnalysisResult}
+            setIsAnalyzed={setIsAnalyzed}
+          ></FinalAnalysis>
         );
       }
     }
@@ -133,33 +155,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ECE7D9",
-  },
-  top: {
-    flex: 1.4,
-    flexDirection: "row",
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "white",
   },
   searchSection: {
     flex: 2.4,
     marginBottom: 1,
-  },
-
-  changeModeText: {
-    fontSize: 16,
-    color: "gray",
-  },
-
-  topButtom: {
-    backgroundColor: "#E1D6BC",
-    width: 110,
-    height: 35,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
   },
 
   titleSquare: {
@@ -169,18 +169,40 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
+    ...Fonts.title,
   },
   title2: {
-    fontSize: 17,
+    ...Fonts.subtitle,
   },
 
   buttonView: {
     flex: 7,
   },
-  analysis: {
-    flex: 1,
-    backgroundColor: "#ECE7D9",
+  top: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  toggleButton: {
+    backgroundColor: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginHorizontal: 5,
+    ...Shadows.basicShadow,
+  },
+  activeButton: {
+    backgroundColor: "black",
+    color: "white",
+  },
+  toggleButtonText: {
+    fontSize: 16,
+    color: "black",
+    ...Fonts.subtitle,
+  },
+  activeButtonText: {
+    color: "white",
   },
 });

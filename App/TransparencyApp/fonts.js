@@ -12,6 +12,14 @@ const fonts = StyleSheet.create({
     color: "black",
     lineHeight: 30,
   },
+  subtitle: {
+    fontFamily: "Special",
+    fontSize: 16,
+  },
+  title: {
+    fontFamily: "Special",
+    fontSize: 30,
+  },
 });
 
 export default fonts;

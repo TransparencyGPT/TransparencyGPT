@@ -3,10 +3,9 @@ import { View, Text, StyleSheet, Image, Animated } from "react-native";
 import Fonts from "./fonts";
 
 const funFacts = [
-  "Pamphlets about witchcraft in the 16th and 17th centuries led to witch-hunts and murder. ",
   "Since 1929, 40 per cent of the newspapers in the United States hare either closed up shop or been consolidated into a newspaper chain. ",
   "Fake news examples have also come in the form of hoaxes, such as Orson Welles’ notorious 1938 radio broadcast about an alien invasion that led many listeners to panic.",
-  " In a six-week period around the time of the 2016 presidential election, research(opens in new tab) suggests that as many as 25% of Americans visited a fake news website.",
+  " In a six-week period around the time of the 2016 presidential election, research suggests that as many as 25% of Americans visited a fake news website.",
   "An analysis of Facebook news around this same election found that the top 20 fake news stories generated more engagement than the top 20 credible news stories (from major news outlets)",
 ];
 export default function LoadingScreen() {
