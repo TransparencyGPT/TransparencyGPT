@@ -7,6 +7,7 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import Fonts from "./fonts";
 import Shadows from "./shadow";
+import SliderScore from "./sliderScore";
 
 import React, { useState, useEffect } from "react";
 import {

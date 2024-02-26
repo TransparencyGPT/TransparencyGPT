@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SliderScore from "./sliderScore";
 import {
   StyleSheet,
   Text,
@@ -11,6 +12,8 @@ import {
   ActivityIndicator,
   ScrollView,
 } from "react-native";
+import Fonts from "./fonts";
+import Shadows from "./shadow";
 
 function FinalAnalysis(props) {
   let backButton = () => {
@@ -63,10 +66,7 @@ function FinalAnalysis(props) {
           <ScrollView style={styles.scroll}>
             <View style={styles.innerMiddleView}>
               <View style={styles.sectionView}>
-                <Text style={styles.subsection}>Score:</Text>
-                <Text style={styles.content}>
-                  {props.analysisResult.subjectivity_score}/10
-                </Text>
+                <SliderScore score={props.analysisResult.subjectivity_score} />
               </View>
               <View style={styles.sectionView}>
                 <Text style={styles.subsection}>Source Analysis:</Text>
@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: "93%",
     padding: 14,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   containerEmpty: {
@@ -119,44 +121,52 @@ const styles = StyleSheet.create({
   innerMiddleView: { width: "93%" },
 
   buttomView: {
-    flex: 2,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonContainer: {
-    backgroundColor: "#C33636",
+    backgroundColor: "white",
     width: 120,
     height: 40,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    ...Shadows.strongShadow,
   },
 
   buttonText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
+    ...Fonts.subtitle,
+    fontSize: 24,
+    color: "black",
   },
 
   analysisHead: {
     fontSize: 22,
-    color: "#C33636",
+    color: "black",
     fontWeight: "bold",
     marginTop: 4,
+    ...Fonts.title,
   },
 
   sectionView: {
     marginBottom: 12,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   subsection: {
-    fontSize: 17,
     fontWeight: "700",
+    ...Fonts.loading,
+    fontSize: 15,
+    alignItems: "center",
   },
 
   content: {
-    fontSize: 16,
+    ...Fonts.loadingFact,
+    fontSize: 11,
     fontWeight: "400",
+    alignItems: "center",
   },
 });
 
