@@ -53,7 +53,6 @@ function FinalAnalysis(props) {
   let article_analysis = props.analysisResult.text_analysis;
   let article_spaces = article_analysis.indexOf("\n\n");
   let article_text = article_analysis.substring(article_spaces + 2);
-
   let source_text = props.analysisResult.GPT_answer;
 
   return (

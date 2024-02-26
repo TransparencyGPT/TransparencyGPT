@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from claude_prompt import bias_analysis
-from combined_prompt import extract_transparency
+from text_bias_prompt import bias_analysis_GPT
+from GPT_prompt import web_analysis
 from newsapi import NewsApiClient
 
 import requests
@@ -58,8 +58,8 @@ def analyze_text():
     if not article_text:
         return jsonify({"error": "No article provided"}), 400
 
-    subjectivity_score, text_analysis, GPT_answer, GPT_token_count = extract_transparency(title, article_text, author, url)
-
+    subjectivity_score, topics, text_analysis = bias_analysis_GPT(article)
+    GPT_answer, GPT_token_count = web_analysis(author, url, topics, devMode=False)
     return jsonify(
         {
             "subjectivity_score": subjectivity_score,

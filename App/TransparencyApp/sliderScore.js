@@ -1,9 +1,9 @@
-import React from "react";
 import { StyleSheet, SafeAreaView, View, Text } from "react-native";
 import fonts from "./fonts";
 
 export default function SliderScore({ score }) {
   // Determine the position of the weight based on the score, with 0.5 being centered
+
   const weightPosition = score / 10 - 0.5;
 
   return (
