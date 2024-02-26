@@ -69,7 +69,7 @@ def bias_analysis_GPT(text):
         Topics = topic1, topic2, topic3. Do not elaborate on the topics after listing them. \n"
 
     prompt2 = "As a language model, can you identify the subjectivity score from the following prompt \
-        and specify it without a sentence (like: subjectivity score = 4/10). Also, summarize the analysis \
+        and specify it without a sentence (like: subjectivity score = 4/10) then insert a paragraph break. Also, summarize the analysis \
         contained within the prompt in one paragraph, focusing on the overall tone, strength of language and \
         overall subjectivity. Remove any redundancy from your answer. Do not specify the overall subjectivity \
         score again in the last line of your answer. "
