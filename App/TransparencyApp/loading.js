@@ -13,28 +13,27 @@ export default function LoadingScreen() {
   const [fact, setFact] = useState(funFacts[0]);
   const rotation = new Animated.Value(0);
 
-  const startRotating = () => {
-    rotation.setValue(0);
-    Animated.loop(
-      Animated.timing(rotation, {
-        toValue: 1,
-        duration: 5000,
-        useNativeDriver: true,
-      })
-    ).start();
+  const spin = () => {
+    rotation.setValue(0); // reset the animated value
+    Animated.timing(rotation, {
+      toValue: 1,
+      duration: 4000,
+      useNativeDriver: true, // Add this line
+    }).start(() => spin()); // Start the animation again in a loop
   };
+  spin();
 
   useEffect(() => {
-    startRotating();
-
     let intervalId = setInterval(() => {
       setFact(
         (prevFact) =>
           funFacts[(funFacts.indexOf(prevFact) + 1) % funFacts.length]
       );
-    }, 5000);
+    }, 4000);
 
-    return () => clearInterval(intervalId);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   const rotationInterpolate = rotation.interpolate({
