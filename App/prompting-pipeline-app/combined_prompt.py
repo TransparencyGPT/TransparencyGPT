@@ -17,7 +17,7 @@ def extract_transparency(title, article, author, url):
     chatGPT as well if necessary later).'''
 
     subjectivity_score, topics, text_analysis = bias_analysis(article)
-    GPT_answer, GPT_token_count = web_analysis(author, url, topics)
+    GPT_answer, GPT_token_count = web_analysis(author, url, topics, True)
     #combined_answer = text_analysis + "\n" + GPT_answer
 
     # Define model name and hyperparameters

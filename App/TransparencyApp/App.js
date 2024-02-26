@@ -2,6 +2,9 @@ import { StatusBar } from "expo-status-bar";
 import FinalAnalysis from "./analysis";
 import InputInterface from "./interface";
 import Search from "./search";
+import LoadingScreen from "./loading";
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -15,6 +18,12 @@ import {
   Alert,
 } from "react-native";
 
+const fetchFonts = () => {
+  return Font.loadAsync({
+    Cutive: require("./assets/Cutive-Regular.ttf"),
+  });
+};
+
 export default function App() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [isAnalyzed, setIsAnalyzed] = useState(false);
@@ -26,83 +35,98 @@ export default function App() {
   const [articleTopic, changeArticle] = React.useState("");
   const [newsSource, changeNews] = React.useState("");
   const [url, changeURL] = React.useState("");
+  const [fontLoaded, setFontLoaded] = useState(false);
 
-  let displayError = () => {
-    const createTwoButtonAlert = () =>
-      Alert.alert("Invalid Article!", "Please Try Again!", [{ text: "OK" }]);
-    createTwoButtonAlert();
-  };
-
-  let searchButton = () => {
-    if (!isLoading) {
-      changeURL("");
-      changeNews("");
-      changeArticle("");
-
-      if (searchURL == false) {
-        changeSearch(true);
-        changeTopButton("URL");
-      } else {
-        changeSearch(false);
-        changeTopButton("Article");
-      }
-    } else {
-      setIsLoading(false);
-    }
-  };
-  if (!isAnalyzed && !isLoading) {
+  if (!fontLoaded) {
     return (
-      <View style={styles.container}>
-        <SafeAreaView style={styles.top}>
-          <Pressable style={styles.topButtom} onPress={searchButton}>
-            <Text style={styles.changeModeText}>{topButtom}</Text>
-          </Pressable>
-        </SafeAreaView>
-        <View style={styles.titleSquare}>
-          <Text style={styles.title}>TransparencyGPT</Text>
-          <Text style={styles.title2}>Know what you are reading!</Text>
-        </View>
-        <View style={styles.searchSection}>
-          <InputInterface
-            searchURL={searchURL}
-            articleTopic={articleTopic}
-            changeArticle={changeArticle}
-            newsSource={newsSource}
-            changeNews={changeNews}
-            url={url}
-            changeURL={changeURL}
-          ></InputInterface>
-        </View>
-
-        <View style={styles.buttonView}>
-          <Search
-            setAnalysisResult={setAnalysisResult}
-            setIsLoading={setIsLoading}
-            setIsAnalyzed={setIsAnalyzed}
-            articleTopic={articleTopic}
-            newsSource={newsSource}
-            url={url}
-            searchURL={searchURL}
-            displayError={displayError}
-          ></Search>
-        </View>
-      </View>
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={(err) => console.warn(err)}
+      />
     );
   } else {
-    return (
-      <View style={styles.analysis}>
-        <FinalAnalysis
-          articleTopic={articleTopic}
-          newsSource={newsSource}
-          url={url}
-          searchURL={searchURL}
-          isLoading={isLoading}
-          analysisResult={analysisResult}
-          setAnalysisResult={setAnalysisResult}
-          setIsAnalyzed={setIsAnalyzed}
-        ></FinalAnalysis>
-      </View>
-    );
+    let displayError = () => {
+      const createTwoButtonAlert = () =>
+        Alert.alert("Invalid Article!", "Please Try Again!", [{ text: "OK" }]);
+      createTwoButtonAlert();
+    };
+
+    let searchButton = () => {
+      if (!isLoading) {
+        changeURL("");
+        changeNews("");
+        changeArticle("");
+
+        if (searchURL == false) {
+          changeSearch(true);
+          changeTopButton("URL");
+        } else {
+          changeSearch(false);
+          changeTopButton("Article");
+        }
+      } else {
+        setIsLoading(false);
+      }
+    };
+    if (isLoading) {
+      return <LoadingScreen />;
+    } else {
+      if (!isAnalyzed && !isLoading) {
+        return (
+          <View style={styles.container}>
+            <SafeAreaView style={styles.top}>
+              <Pressable style={styles.topButtom} onPress={searchButton}>
+                <Text style={styles.changeModeText}>{topButtom}</Text>
+              </Pressable>
+            </SafeAreaView>
+            <View style={styles.titleSquare}>
+              <Text style={styles.title}>TransparencyGPT</Text>
+              <Text style={styles.title2}>Know what you are reading!</Text>
+            </View>
+            <View style={styles.searchSection}>
+              <InputInterface
+                searchURL={searchURL}
+                articleTopic={articleTopic}
+                changeArticle={changeArticle}
+                newsSource={newsSource}
+                changeNews={changeNews}
+                url={url}
+                changeURL={changeURL}
+              ></InputInterface>
+            </View>
+
+            <View style={styles.buttonView}>
+              <Search
+                setAnalysisResult={setAnalysisResult}
+                setIsLoading={setIsLoading}
+                setIsAnalyzed={setIsAnalyzed}
+                articleTopic={articleTopic}
+                newsSource={newsSource}
+                url={url}
+                searchURL={searchURL}
+                displayError={displayError}
+              ></Search>
+            </View>
+          </View>
+        );
+      } else {
+        return (
+          <View style={styles.analysis}>
+            <FinalAnalysis
+              articleTopic={articleTopic}
+              newsSource={newsSource}
+              url={url}
+              searchURL={searchURL}
+              isLoading={isLoading}
+              analysisResult={analysisResult}
+              setAnalysisResult={setAnalysisResult}
+              setIsAnalyzed={setIsAnalyzed}
+            ></FinalAnalysis>
+          </View>
+        );
+      }
+    }
   }
 }
 

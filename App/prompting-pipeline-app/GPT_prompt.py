@@ -2,12 +2,13 @@ from openai import OpenAI
 
 # Updated 02/13/24 - 3:55PM
 
-def web_analysis(author, url, topics):
+def web_analysis(author, url, topics, devMode):
     '''This function defines a series of independent prompts 
     to GPT and executes them. It then combines them and
     counts the tokens used by the overall function.
     It returns the combined answer and the token count.'''
-
+    if (devMode):
+        return "DEvelopment Final answer", 0;
     # Define model name and hyperparameters
     model="gpt-3.5-turbo"
     client = OpenAI(api_key="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")
