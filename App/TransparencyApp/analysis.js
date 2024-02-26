@@ -151,22 +151,18 @@ const styles = StyleSheet.create({
 
   sectionView: {
     marginBottom: 12,
-    justifyContent: "center",
-    alignItems: "center",
   },
 
   subsection: {
     fontWeight: "700",
     ...Fonts.loading,
     fontSize: 15,
-    alignItems: "center",
   },
 
   content: {
     ...Fonts.loadingFact,
     fontSize: 11,
     fontWeight: "400",
-    alignItems: "center",
   },
 });
 

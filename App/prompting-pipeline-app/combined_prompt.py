@@ -18,7 +18,7 @@ def extract_transparency(title, article, author, url):
     # WHEN TESTING AND DEVELOPING, SET devMode TO TRUE 
 
     subjectivity_score, topics, text_analysis = bias_analysis(article)
-    GPT_answer, GPT_token_count = web_analysis(author, url, topics, devMode=True)
+    GPT_answer, GPT_token_count = web_analysis(author, url, topics, devMode=False)
     #combined_answer = text_analysis + "\n" + GPT_answer
 
     # Define model name and hyperparameters

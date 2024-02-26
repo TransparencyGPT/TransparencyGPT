@@ -16,7 +16,7 @@ export default function LoadingScreen() {
     rotation.setValue(0); // reset the animated value
     Animated.timing(rotation, {
       toValue: 1,
-      duration: 4000,
+      duration: 5000,
       useNativeDriver: true, // Add this line
     }).start(() => spin()); // Start the animation again in a loop
   };
@@ -28,7 +28,7 @@ export default function LoadingScreen() {
         (prevFact) =>
           funFacts[(funFacts.indexOf(prevFact) + 1) % funFacts.length]
       );
-    }, 4000);
+    }, 5000);
 
     return () => {
       clearInterval(intervalId);
