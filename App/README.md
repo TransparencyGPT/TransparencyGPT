@@ -10,4 +10,4 @@ To run this app:
 Instructions:
 1. Copy a newsarticle to your clipboard.
 2. Go to the app and click paste URL.
-3. Click to Analyze.
+3. Click search to Analyze.
