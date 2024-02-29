@@ -58,7 +58,7 @@ def analyze_text():
     if not article_text:
         return jsonify({"error": "No article provided"}), 400
 
-    subjectivity_score, topics, text_analysis = bias_analysis_GPT(article)
+    subjectivity_score, topics, text_analysis = bias_analysis_GPT(article_text)
     GPT_answer, GPT_token_count = web_analysis(author, url, topics, devMode=False)
     return jsonify(
         {
