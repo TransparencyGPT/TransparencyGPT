@@ -8,6 +8,7 @@ These few weeks, a major element in the code that I worked on was re-organizing 
 Something that I wish to expand upon is to add more functionalities and more user options in the main screen and to continue modifying the user interface. I would like to add the ability for the app to recommend some top articles for the day, for the user to select and analyze. I also would like to add the option for users simply click and analyize the top news sources, without even typing it in. In addition, for the final stretch of the project, I want to adjust and polish the user interface further. I ultimately want to continue to add more functionality and continue to edit the interface to ultimately allow for a better user experience! To accomplish this, I plan on exploring NewsAPI even further and continuing to study/implement various key concepts from react native.
 
 
+_________________________________________________________________________________________________________________________________________________________________________________________
 
 
 Sprint 2 Updates:
