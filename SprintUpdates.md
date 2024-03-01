@@ -1,4 +1,10 @@
 Sprint 3 Updates:
+Lucy Zimmerman: 
+This week, I made significant progress on enhancing our codebase, with a particular focus on the user interface (UI) aspects of our project. My efforts were concentrated on integrating and updating the UI to create a more visually appealing and cohesive user experience. I incorporated a variety of fonts, colors, and shadow effects to define the UI's aesthetic, successfully integrating these elements with the help of expo-font. A major change was transforming the app's color scheme to black and white, which not only streamlined the look but also emphasized a more uniform style. Additionally, I dedicated time to designing and implementing a loading screen for Transparency GPT. This screen features a rotating logo and presents users with interesting facts about misinformation while they wait for analysis to complete. Improvements were also made to the copy and paste clipboard functionality, enhancing user interaction with our application.
+
+Further refining the analysis process, I separated the results into two distinct sections: one focusing on the source and the other on the text content itself. On this page, I introduced a sliding scale that visually represents the bias level of the text as determined by our algorithm. This development, in tandem with Nico's transition from using Claude to GPT for analysis, significantly reduced the loading times, streamlining the user experience. I also prepared a script file, setup.sh, which automates the downloading of necessary dependencies, simplifying the setup process for new users. 
+
+Looking ahead to next week, I plan to further enhance the UI by adding sliding features for accessing detailed analyses of sources and topics. Additionally, I aim to redesign the result screen to include expansion arrows, offering users a more interactive way to explore specific details of the analysis, such as the author's identity, and so forth. These enhancements are aimed at providing a more intuitive and informative platform for our users.
 
 Alberto Mancarella:
 
