@@ -41,15 +41,22 @@ def analyze_text():
     html_content = response2.text
     soup = BeautifulSoup(html_content, "html.parser")
 
-     # Corrected approach for extracting title
-    title_tag = soup.find('meta', property='og:title') or soup.find('title')
-    title = title_tag['content'] if title_tag and 'content' in title_tag.attrs else title_tag.text if title_tag else None
+    # Corrected approach for extracting title
+    title_tag = soup.find("meta", property="og:title") or soup.find("title")
+    title = (
+        title_tag["content"]
+        if title_tag and "content" in title_tag.attrs
+        else title_tag.text if title_tag else None
+    )
 
     # Corrected approach for extracting author
     # Here we avoid using lambda in a conflicting way with the 'name' parameter
-    author_tag = soup.find('meta', attrs={'name': lambda x: x and 'author' in x.lower()})
-    author = author_tag['content'] if author_tag and 'content' in author_tag.attrs else None
-
+    author_tag = soup.find(
+        "meta", attrs={"name": lambda x: x and "author" in x.lower()}
+    )
+    author = (
+        author_tag["content"] if author_tag and "content" in author_tag.attrs else None
+    )
 
     article_text = ""
     for paragraph in soup.find_all("p"):
@@ -68,6 +75,31 @@ def analyze_text():
             "GPT_token_count": GPT_token_count,
         }
     )
+
+
+@app.route("/getTopics", methods=["POST"])
+def abc():
+    api_key = "25d4e4d5fa0444b7bcbdae7c333b55f0"
+    api = NewsApiClient(api_key=api_key)
+    top_headlines = api.get_top_headlines(
+        country="us",
+    )
+    articles = top_headlines["articles"]
+
+    output = []
+
+    for each in articles:
+
+        title = each.get("title", "")
+        url = each.get("url", "")
+        if url != "":
+            dictionary = {}
+            dictionary["title"] = title
+            dictionary["url"] = url
+            output.append(dictionary)
+    print(output)
+
+    return jsonify(output)
 
 
 if __name__ == "__main__":

@@ -3,11 +3,13 @@ import FinalAnalysis from "./analysis";
 import InputInterface from "./interface";
 import Search from "./search";
 import LoadingScreen from "./loading";
+import Topics from "./topics";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import Fonts from "./fonts";
 import Shadows from "./shadow";
 import SliderScore from "./sliderScore";
+import axios from "axios";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -40,6 +42,8 @@ export default function App() {
   const [newsSource, changeNews] = React.useState("");
   const [url, changeURL] = React.useState("");
   const [fontLoaded, setFontLoaded] = useState(false);
+
+  const [buttonList, changeList] = useState([]);
 
   if (!fontLoaded) {
     return (
@@ -120,7 +124,16 @@ export default function App() {
                 changeURL={changeURL}
               ></InputInterface>
             </View>
-
+            <View style={styles.topicsView}>
+              <Topics
+                buttonList={buttonList}
+                changeList={changeList}
+                setAnalysisResult={setAnalysisResult}
+                setIsLoading={setIsLoading}
+                setIsAnalyzed={setIsAnalyzed}
+                displayError={displayError}
+              ></Topics>
+            </View>
             <View style={styles.buttonView}>
               <Search
                 setAnalysisResult={setAnalysisResult}
@@ -177,8 +190,13 @@ const styles = StyleSheet.create({
   },
 
   buttonView: {
-    flex: 7,
+    flex: 2,
   },
+
+  topicsView: {
+    flex: 6,
+  },
+
   top: {
     flexDirection: "row",
     justifyContent: "center",
