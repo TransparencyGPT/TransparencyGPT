@@ -1,3 +1,16 @@
+import { StatusBar } from "expo-status-bar";
+import FinalAnalysis from "./analysis";
+import InputInterface from "./interface";
+import Search from "./search";
+import LoadingScreen from "./loading";
+import Topics from "./topics";
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+import Fonts from "./fonts";
+import Shadows from "./shadow";
+import SliderScore from "./sliderScore";
+import axios from "axios";
+
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
@@ -7,16 +20,7 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-
-import FinalAnalysis from "./analysis";
-import InputInterface from "./interface";
-import Search from "./search";
-import LoadingScreen from "./loading";
-import Fonts from "./fonts";
-import Shadows from "./shadow";
-import SliderScore from "./sliderScore";
 
 // Call preventAutoHideAsync immediately
 SplashScreen.preventAutoHideAsync();
@@ -27,9 +31,14 @@ export default function App() {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [searchURL, changeSearch] = useState(true);
-  const [articleTopic, changeArticle] = useState("");
-  const [newsSource, changeNews] = useState("");
-  const [url, changeURL] = useState("");
+  const [topButtom, changeTopButton] = useState("URL");
+
+  const [articleTopic, changeArticle] = React.useState("");
+  const [newsSource, changeNews] = React.useState("");
+  const [url, changeURL] = React.useState("");
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  const [buttonList, changeList] = useState([]);
 
   useEffect(() => {
     async function prepare() {
@@ -128,7 +137,16 @@ export default function App() {
               changeURL={changeURL}
             ></InputInterface>
           </View>
-
+          <View style={styles.topicsView}>
+            <Topics
+              buttonList={buttonList}
+              changeList={changeList}
+              setAnalysisResult={setAnalysisResult}
+              setIsLoading={setIsLoading}
+              setIsAnalyzed={setIsAnalyzed}
+              displayError={displayError}
+            ></Topics>
+          </View>
           <View style={styles.buttonView}>
             <Search
               setAnalysisResult={setAnalysisResult}
@@ -184,8 +202,9 @@ const styles = StyleSheet.create({
   },
 
   buttonView: {
-    flex: 1,
+    flex: 7,
   },
+
   top: {
     flexDirection: "row",
     justifyContent: "center",
@@ -212,5 +231,8 @@ const styles = StyleSheet.create({
   },
   activeButtonText: {
     color: "white",
+  },
+  topicsView: {
+    flex: 6,
   },
 });
