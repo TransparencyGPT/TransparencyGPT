@@ -1,154 +1,161 @@
-import { StatusBar } from "expo-status-bar";
-import FinalAnalysis from "./analysis";
-import InputInterface from "./interface";
-import Search from "./search";
-import LoadingScreen from "./loading";
-import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
-import Fonts from "./fonts";
-import Shadows from "./shadow";
-import SliderScore from "./sliderScore";
-
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
-  Switch,
-  Button,
   Pressable,
   Alert,
 } from "react-native";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
-const fetchFonts = () => {
-  return Font.loadAsync({
-    Cutive: require("./assets/Cutive-Regular.ttf"),
-    Special: require("./assets/SpecialElite-Regular.ttf"),
-  });
-};
+import FinalAnalysis from "./analysis";
+import InputInterface from "./interface";
+import Search from "./search";
+import LoadingScreen from "./loading";
+import Fonts from "./fonts";
+import Shadows from "./shadow";
+import SliderScore from "./sliderScore";
+
+// Call preventAutoHideAsync immediately
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [searchURL, changeSearch] = useState(true);
-  const [topButtom, changeTopButton] = useState("URL");
+  const [articleTopic, changeArticle] = useState("");
+  const [newsSource, changeNews] = useState("");
+  const [url, changeURL] = useState("");
 
-  const [articleTopic, changeArticle] = React.useState("");
-  const [newsSource, changeNews] = React.useState("");
-  const [url, changeURL] = React.useState("");
-  const [fontLoaded, setFontLoaded] = useState(false);
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await Font.loadAsync({
+          Cutive: require("./assets/Cutive-Regular.ttf"),
+          Special: require("./assets/SpecialElite-Regular.ttf"),
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
 
-  if (!fontLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setFontLoaded(true)}
-        onError={(err) => console.warn(err)}
-      />
-    );
+    prepare();
+  }, []);
+
+  useEffect(() => {
+    if (appIsReady) {
+      SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
+  let displayError = () => {
+    const createTwoButtonAlert = () =>
+      Alert.alert("Invalid Article!", "Please Try Again!", [{ text: "OK" }]);
+    createTwoButtonAlert();
+  };
+
+  let toggleSearchMode = (mode) => {
+    if (!isLoading) {
+      changeURL("");
+      changeNews("");
+      changeArticle("");
+      changeSearch(mode === "URL");
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingScreen />;
   } else {
-    let displayError = () => {
-      const createTwoButtonAlert = () =>
-        Alert.alert("Invalid Article!", "Please Try Again!", [{ text: "OK" }]);
-      createTwoButtonAlert();
-    };
+    if (!isAnalyzed && !isLoading) {
+      return (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.top}>
+            <Pressable
+              style={[
+                styles.toggleButton,
+                searchURL ? styles.activeButton : {},
+              ]}
+              onPress={() => toggleSearchMode("URL")}
+            >
+              <Text
+                style={[
+                  styles.toggleButtonText,
+                  searchURL ? styles.activeButtonText : {},
+                ]}
+              >
+                URL
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[
+                styles.toggleButton,
+                !searchURL ? styles.activeButton : {},
+              ]}
+              onPress={() => toggleSearchMode("Article")}
+            >
+              <Text
+                style={[
+                  styles.toggleButtonText,
+                  !searchURL ? styles.activeButtonText : {},
+                ]}
+              >
+                Article
+              </Text>
+            </Pressable>
+          </View>
+          <View style={styles.titleSquare}>
+            <Text style={styles.title}>TransparencyGPT</Text>
+            <Text style={styles.title2}>Know what you are reading!</Text>
+          </View>
+          <View style={styles.searchSection}>
+            <InputInterface
+              searchURL={searchURL}
+              articleTopic={articleTopic}
+              changeArticle={changeArticle}
+              newsSource={newsSource}
+              changeNews={changeNews}
+              url={url}
+              changeURL={changeURL}
+            ></InputInterface>
+          </View>
 
-    let toggleSearchMode = (mode) => {
-      if (!isLoading) {
-        changeURL("");
-        changeNews("");
-        changeArticle("");
-        changeSearch(mode === "URL");
-      }
-    };
-
-    if (isLoading) {
-      return <LoadingScreen />;
+          <View style={styles.buttonView}>
+            <Search
+              setAnalysisResult={setAnalysisResult}
+              setIsLoading={setIsLoading}
+              setIsAnalyzed={setIsAnalyzed}
+              articleTopic={articleTopic}
+              newsSource={newsSource}
+              url={url}
+              searchURL={searchURL}
+              displayError={displayError}
+            ></Search>
+          </View>
+        </SafeAreaView>
+      );
     } else {
-      if (!isAnalyzed && !isLoading) {
-        return (
-          <SafeAreaView style={styles.container}>
-            <View style={styles.top}>
-              <Pressable
-                style={[
-                  styles.toggleButton,
-                  searchURL ? styles.activeButton : {},
-                ]}
-                onPress={() => toggleSearchMode("URL")}
-              >
-                <Text
-                  style={[
-                    styles.toggleButtonText,
-                    searchURL ? styles.activeButtonText : {},
-                  ]}
-                >
-                  URL
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[
-                  styles.toggleButton,
-                  !searchURL ? styles.activeButton : {},
-                ]}
-                onPress={() => toggleSearchMode("Article")}
-              >
-                <Text
-                  style={[
-                    styles.toggleButtonText,
-                    !searchURL ? styles.activeButtonText : {},
-                  ]}
-                >
-                  Article
-                </Text>
-              </Pressable>
-            </View>
-            <View style={styles.titleSquare}>
-              <Text style={styles.title}>TransparencyGPT</Text>
-              <Text style={styles.title2}>Know what you are reading!</Text>
-            </View>
-            <View style={styles.searchSection}>
-              <InputInterface
-                searchURL={searchURL}
-                articleTopic={articleTopic}
-                changeArticle={changeArticle}
-                newsSource={newsSource}
-                changeNews={changeNews}
-                url={url}
-                changeURL={changeURL}
-              ></InputInterface>
-            </View>
-
-            <View style={styles.buttonView}>
-              <Search
-                setAnalysisResult={setAnalysisResult}
-                setIsLoading={setIsLoading}
-                setIsAnalyzed={setIsAnalyzed}
-                articleTopic={articleTopic}
-                newsSource={newsSource}
-                url={url}
-                searchURL={searchURL}
-                displayError={displayError}
-              ></Search>
-            </View>
-          </SafeAreaView>
-        );
-      } else {
-        return (
-          <FinalAnalysis
-            articleTopic={articleTopic}
-            newsSource={newsSource}
-            url={url}
-            searchURL={searchURL}
-            isLoading={isLoading}
-            analysisResult={analysisResult}
-            setAnalysisResult={setAnalysisResult}
-            setIsAnalyzed={setIsAnalyzed}
-          ></FinalAnalysis>
-        );
-      }
+      return (
+        <FinalAnalysis
+          articleTopic={articleTopic}
+          newsSource={newsSource}
+          url={url}
+          searchURL={searchURL}
+          isLoading={isLoading}
+          analysisResult={analysisResult}
+          setAnalysisResult={setAnalysisResult}
+          setIsAnalyzed={setIsAnalyzed}
+        ></FinalAnalysis>
+      );
     }
   }
 }
@@ -177,7 +184,7 @@ const styles = StyleSheet.create({
   },
 
   buttonView: {
-    flex: 7,
+    flex: 1,
   },
   top: {
     flexDirection: "row",

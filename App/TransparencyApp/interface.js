@@ -8,14 +8,17 @@ import {
   Button,
   Pressable,
   TextInput,
+  Image,
 } from "react-native";
 import * as Clipboard from "expo-clipboard";
+import SlidingRow from "./slidingRow";
 import Shadows from "./shadow";
 import Fonts from "./fonts";
 import Colors from "./colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import items from "./newsLogos";
 
 function InputInterface(props) {
   let [pasted, setPasted] = useState(false);
@@ -36,7 +39,7 @@ function InputInterface(props) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {!props.searchURL && (
         <>
           <TextInput
@@ -76,7 +79,7 @@ function InputInterface(props) {
           </Pressable>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
