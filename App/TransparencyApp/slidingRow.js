@@ -5,7 +5,7 @@ import {
   Image,
   FlatList,
   Text,
-  SafeAreaView,
+  View,
 } from "react-native";
 import Shadows from "./shadow";
 import Fonts from "./fonts";
@@ -20,7 +20,9 @@ function SlidingRow({ items }) {
   );
 
   return (
-    <SafeAreaView style={styles.slidingRow}>
+    <View>
+      <Text style={styles.title}>Popular News Sources</Text>
+
       <FlatList
         data={items} // Pass the items array as data
         renderItem={renderItem} // Specify how to render each item
@@ -29,17 +31,15 @@ function SlidingRow({ items }) {
         showsHorizontalScrollIndicator={false} // Hide the horizontal scroll indicator
         contentContainerStyle={styles.slider} // Apply styles to the content container of the FlatList
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  slidingRow: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    marginTop: 20,
+  title: {
+    ...Fonts.subtitle,
+    fontSize: 20,
+    textAlign: "center",
   },
   logo: {
     width: "100%",
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   sliderItem: {
+    marginTop: 10,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,

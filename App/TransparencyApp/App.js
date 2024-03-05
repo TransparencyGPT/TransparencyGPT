@@ -10,6 +10,7 @@ import Fonts from "./fonts";
 import Shadows from "./shadow";
 import SliderScore from "./sliderScore";
 import axios from "axios";
+import SlidingRow from "./slidingRow";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -137,6 +138,7 @@ export default function App() {
               changeURL={changeURL}
             ></InputInterface>
           </View>
+
           <View style={styles.topicsView}>
             <Topics
               buttonList={buttonList}
@@ -147,6 +149,10 @@ export default function App() {
               displayError={displayError}
             ></Topics>
           </View>
+          <SafeAreaView style={styles.slidingRow}>
+            <SlidingRow items={items} />
+          </SafeAreaView>
+
           <View style={styles.buttonView}>
             <Search
               setAnalysisResult={setAnalysisResult}
@@ -179,6 +185,12 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  slidingRow: {
+    flex: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 40,
+  },
   container: {
     flex: 1,
     backgroundColor: "white",
@@ -202,7 +214,7 @@ const styles = StyleSheet.create({
   },
 
   buttonView: {
-    flex: 7,
+    flex: 1,
   },
 
   top: {
@@ -233,6 +245,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   topicsView: {
-    flex: 6,
+    flex: 3,
+    padding: 10,
   },
 });
