@@ -10,11 +10,18 @@ import {
 import Shadows from "./shadow";
 import Fonts from "./fonts";
 import Colors from "./colors";
+import { useNavigation } from "@react-navigation/native";
 
 function SlidingRow({ items }) {
+  const navigation = useNavigation(); // Use the navigation hook
+
   // renderItem function to render each item
   const renderItem = ({ item, index }) => (
-    <Pressable onPress={() => item.onSelect()} style={styles.sliderItem}>
+    <Pressable
+      key={index}
+      onPress={() => navigation.navigate(item.page)} // Corrected this line
+      style={styles.sliderItem}
+    >
       <Image source={item.source} style={styles.logo} />
     </Pressable>
   );

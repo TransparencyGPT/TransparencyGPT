@@ -96,7 +96,8 @@ def abc():
             dictionary = {}
             dictionary["title"] = title
             dictionary["url"] = url
-            output.append(dictionary)
+            if title != "[Removed]":
+                output.append(dictionary)
     print(output)
 
     return jsonify(output)

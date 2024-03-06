@@ -1,80 +1,35 @@
-import React, { useState } from "react";
-import SliderScore from "./sliderScore";
+import React from "react";
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
-  Switch,
-  Button,
+  StyleSheet,
   Pressable,
-  TextInput,
-  ActivityIndicator,
   ScrollView,
 } from "react-native";
-import Fonts from "./fonts";
-import Shadows from "./shadow";
+import SliderScore from "../sliderScore";
+import Shadows from "../shadow";
+import Fonts from "../fonts";
 
-function FinalAnalysis({ route, navigation }, ...props) {
-  const { analysisResult } = route.params;
-
+function CNNAnalysisScreen({ navigation, route }) {
   let backButton = () => {
     navigation.goBack();
   };
-
-  if (props.isLoading) {
-    return (
-      <SafeAreaView style={styles.background}>
-        <View style={styles.containerEmpty}>
-          <View style={styles.titleView}>
-            <Text style={styles.analysisHead}>Analysis Result</Text>
-          </View>
-
-          <View style={styles.middleView}>
-            <ScrollView style={styles.scroll}>
-              <View style={styles.innerMiddleView}>
-                <View style={styles.sectionView}>
-                  <Text style={styles.content}></Text>
-                </View>
-                <View style={styles.sectionView}></View>
-                <View style={styles.sectionView}></View>
-              </View>
-            </ScrollView>
-          </View>
-
-          <View style={styles.buttomView}>
-            <Pressable style={styles.buttonContainer} onPress={backButton}>
-              <ActivityIndicator color="#FFF" />
-            </Pressable>
-          </View>
-        </View>
-      </SafeAreaView>
-    );
-  }
-  let article_analysis = analysisResult.text_analysis;
-  let article_spaces = article_analysis.indexOf("\n\n");
-  let article_text = article_analysis.substring(article_spaces + 2);
-  let source_text = analysisResult.GPT_answer;
-
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
         <View style={styles.titleView}>
-          <Text style={styles.analysisHead}>Analysis Result</Text>
+          <Text style={styles.analysisHead}>Analysis of CNN</Text>
         </View>
         <View style={styles.middleView}>
           <ScrollView style={styles.scroll}>
             <View style={styles.innerMiddleView}>
               <View style={styles.sectionView}>
-                <SliderScore score={analysisResult.subjectivity_score} />
+                <SliderScore score={5} />
               </View>
               <View style={styles.sectionView}>
                 <Text style={styles.subsection}>Source Analysis:</Text>
-                <Text style={styles.content}>{source_text}</Text>
-              </View>
-              <View style={styles.sectionView}>
-                <Text style={styles.subsection}>Article Analysis:</Text>
-                <Text style={styles.content}>{article_text}</Text>
+                <Text style={styles.content}>Insert Analysis</Text>
               </View>
             </View>
           </ScrollView>
@@ -89,7 +44,6 @@ function FinalAnalysis({ route, navigation }, ...props) {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -166,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FinalAnalysis;
+export default CNNAnalysisScreen;

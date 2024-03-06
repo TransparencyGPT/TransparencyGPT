@@ -1,34 +1,34 @@
 export default items = [
   {
     source: require("./assets/Logos/NYT.png"),
-    onSelect: () => console.log("NYT logo pressed"),
+    page: "NYTAnalysis",
   },
   {
     source: require("./assets/Logos/foxNews.png"),
-    onSelect: () => console.log("Fox News logo pressed"),
+    page: "FoxAnalysis",
   },
   {
     source: require("./assets/Logos/NBC.png"),
-    onSelect: () => console.log("NBC logo pressed"),
+    page: "NBCAnalysis",
   },
   {
     source: require("./assets/Logos/CNN.jpg"),
-    onSelect: () => console.log("CNN logo pressed"),
+    page: "CNNAnalysis",
   },
   {
     source: require("./assets/Logos/WSJ.png"),
-    onSelect: () => console.log("WSJ logo pressed"),
+    page: "WSJAnalysis",
   },
   {
     source: require("./assets/Logos/WP.png"),
-    onSelect: () => console.log("WP logo pressed"),
+    page: "WPAnalysis",
   },
   {
     source: require("./assets/Logos/BBC.jpeg"),
-    onSelect: () => console.log("BBC logo pressed"),
+    page: "BBCAnalysis",
   },
   {
     source: require("./assets/Logos/USAToday.png"),
-    onSelect: () => console.log("USA Today logo pressed"),
+    page: "USATodayAnalysis",
   },
 ];

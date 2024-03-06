@@ -45,7 +45,6 @@ function Topics(props) {
       props.setAnalysisResult(response.data); // Set the result from the API response
       props.setIsAnalyzed(true); // Mark the analysis as done
     } catch (error) {
-      // console.error("Error fetching analysis:", error);
       props.setAnalysisResult({ error: "Failed to fetch analysis" });
       props.displayError();
     } finally {

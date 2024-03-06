@@ -1,56 +1,44 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Switch,
-  Button,
-  Pressable,
-  TextInput,
-} from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import axios from "axios";
 import Shadows from "./shadow";
 import Fonts from "./fonts";
+import { useNavigation } from "@react-navigation/native";
 
 function Search(props) {
-  const updateLoading = () => {
-    fetchAnalysis();
-  };
+  const navigation = useNavigation(); // Use the navigation hook
 
   const fetchAnalysis = async () => {
     props.setIsLoading(true); // Begin loading
 
-    let input_type = "url";
+    // Determine the input type
+    const input_type = props.searchURL ? "url" : "article";
+    // Construct the dictionary based on the input type
+    const dictionary = props.searchURL
+      ? { url: props.url }
+      : { articleTopic: props.articleTopic, newsSource: props.newsSource };
 
-    if (props.searchURL == false) {
-      input_type = "inputs";
-    }
-
-    let dictionary = {
-      articleTopic: props.articleTopic,
-      newsSource: props.newsSource,
-      input_type: input_type,
-      url: props.url,
-    };
     try {
       const response = await axios.post("http://127.0.0.1:5000/analyze", {
         data: dictionary,
+        input_type: input_type,
       });
-      props.setAnalysisResult(response.data); // Set the result from the API response
-      props.setIsAnalyzed(true); // Mark the analysis as done
+
+      props.setAnalysisResult(response.data);
+
+      navigation.navigate("FinalAnalysis", { analysisResult: response.data });
     } catch (error) {
-      // console.error("Error fetching analysis:", error);
+      console.error("Error fetching analysis:", error);
       props.setAnalysisResult({ error: "Failed to fetch analysis" });
       props.displayError();
     } finally {
-      props.setIsLoading(false);
+      props.setIsLoading(false); // End loading
     }
   };
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.buttonContainer} onPress={updateLoading}>
+      <Pressable style={styles.buttonContainer} onPress={fetchAnalysis}>
         <Text style={styles.buttonText}>SEARCH</Text>
       </Pressable>
     </View>

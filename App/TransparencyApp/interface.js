@@ -18,7 +18,7 @@ import Colors from "./colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import items from "./newsLogos";
+import items from "./newsSourceArray";
 
 function InputInterface(props) {
   let [pasted, setPasted] = useState(false);
