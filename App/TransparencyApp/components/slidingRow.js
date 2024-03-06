@@ -7,9 +7,9 @@ import {
   Text,
   View,
 } from "react-native";
-import Shadows from "./shadow";
-import Fonts from "./fonts";
-import Colors from "./colors";
+import Shadows from "../assets/shadow";
+import Fonts from "../assets/fonts";
+import Colors from "../assets/colors";
 import { useNavigation } from "@react-navigation/native";
 
 function SlidingRow({ items }) {

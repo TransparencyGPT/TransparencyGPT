@@ -7,9 +7,9 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import SliderScore from "../sliderScore";
-import Shadows from "../shadow";
-import Fonts from "../fonts";
+import SliderScore from "../components/sliderScore";
+import Shadows from "../assets/shadow";
+import Fonts from "../assets/fonts";
 
 function WSJAnalysisScreen({ navigation, route }) {
   let backButton = () => {

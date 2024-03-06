@@ -6,11 +6,14 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import Fonts from "./fonts";
+import Fonts from "../assets/fonts";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 function Topics(props) {
+  const navigation = useNavigation(); // Use the navigation hook
+
   useEffect(() => {
     if (props.buttonList.length == 0) {
       fetchToparticles();
@@ -42,8 +45,9 @@ function Topics(props) {
       const response = await axios.post("http://127.0.0.1:5000/analyze", {
         data: dictionary,
       });
-      props.setAnalysisResult(response.data); // Set the result from the API response
-      props.setIsAnalyzed(true); // Mark the analysis as done
+      props.setAnalysisResult(response.data);
+
+      navigation.navigate("FinalAnalysis", { analysisResult: response.data });
     } catch (error) {
       props.setAnalysisResult({ error: "Failed to fetch analysis" });
       props.displayError();

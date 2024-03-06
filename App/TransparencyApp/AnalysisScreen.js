@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SliderScore from "./sliderScore";
+import SliderScore from "./components/sliderScore";
 import {
   StyleSheet,
   Text,
@@ -12,8 +12,8 @@ import {
   ActivityIndicator,
   ScrollView,
 } from "react-native";
-import Fonts from "./fonts";
-import Shadows from "./shadow";
+import Fonts from "./assets/fonts";
+import Shadows from "./assets/shadow";
 
 function FinalAnalysis({ route, navigation }, ...props) {
   const { analysisResult } = route.params;

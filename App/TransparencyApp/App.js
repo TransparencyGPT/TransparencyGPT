@@ -15,7 +15,7 @@ import WSJAnalysisScreen from "./NewsSources/WSJAnalysis";
 import WPAnalysisScreen from "./NewsSources/WPAnalysis";
 import USATodayAnalysisScreen from "./NewsSources/USATodayAnalysis";
 import LoadingScreen from "./loading";
-import FinalAnalysis from "./analysis";
+import FinalAnalysis from "./AnalysisScreen";
 
 const Stack = createStackNavigator();
 

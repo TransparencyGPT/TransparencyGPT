@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import axios from "axios";
-import Shadows from "./shadow";
-import Fonts from "./fonts";
+import Shadows from "../assets/shadow";
+import Fonts from "../assets/fonts";
 import { useNavigation } from "@react-navigation/native";
 
 function Search(props) {

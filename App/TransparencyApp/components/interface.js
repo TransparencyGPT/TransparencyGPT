@@ -12,13 +12,13 @@ import {
 } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import SlidingRow from "./slidingRow";
-import Shadows from "./shadow";
-import Fonts from "./fonts";
-import Colors from "./colors";
+import Shadows from "../assets/shadow";
+import Fonts from "../assets/fonts";
+import Colors from "../assets/colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import items from "./newsSourceArray";
+import items from "../NewsSources/newsSourceArray";
 
 function InputInterface(props) {
   let [pasted, setPasted] = useState(false);

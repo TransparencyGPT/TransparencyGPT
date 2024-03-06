@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, Animated } from "react-native";
-import Fonts from "./fonts";
+import Fonts from "./assets/fonts";
 
 const funFacts = [
   "Since 1929, 40 per cent of the newspapers in the United States hare either closed up shop or been consolidated into a newspaper chain. ",

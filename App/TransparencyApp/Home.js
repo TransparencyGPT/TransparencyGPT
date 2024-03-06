@@ -1,16 +1,16 @@
 import { StatusBar } from "expo-status-bar";
-import FinalAnalysis from "./analysis";
-import InputInterface from "./interface";
-import Search from "./search";
+import FinalAnalysis from "./AnalysisScreen";
+import InputInterface from "./components/interface";
+import Search from "./components/search";
 import LoadingScreen from "./loading";
-import Topics from "./topics";
+import Topics from "./components/topics";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import Fonts from "./fonts";
-import Shadows from "./shadow";
-import SliderScore from "./sliderScore";
+import Fonts from "./assets/fonts";
+import Shadows from "./assets/shadow";
+import SliderScore from "./components/sliderScore";
 import axios from "axios";
-import SlidingRow from "./slidingRow";
+import SlidingRow from "./components/slidingRow";
 
 import React, { useState, useEffect } from "react";
 import {
