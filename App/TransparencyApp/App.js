@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import HomeScreen from "./Home";
+import HomeScreen from "./Screens/HomeScreen";
 import NYTAnalysisScreen from "./NewsSources/NYTAnalysis";
 import CNNAnalysisScreen from "./NewsSources/CNNAnalysis";
 import BBCAnalysisScreen from "./NewsSources/BBCAnalysis";
@@ -14,9 +14,10 @@ import NBCAnalysisScreen from "./NewsSources/NBCAnalysis";
 import WSJAnalysisScreen from "./NewsSources/WSJAnalysis";
 import WPAnalysisScreen from "./NewsSources/WPAnalysis";
 import USATodayAnalysisScreen from "./NewsSources/USATodayAnalysis";
-import LoadingScreen from "./loading";
-import FinalAnalysis from "./AnalysisScreen";
-
+import TopicsScreen from "./Screens/TopicsScreen";
+import LoadingScreen from "./Screens/LoadingScreen";
+import FinalAnalysis from "./Screens/AnalysisScreen";
+import NewsSourceScreen from "./Screens/NewsSourceScreen";
 const Stack = createStackNavigator();
 
 function MainStackNavigator() {
@@ -35,6 +36,9 @@ function MainStackNavigator() {
       <Stack.Screen name="NBCAnalysis" component={NBCAnalysisScreen} />
       <Stack.Screen name="WSJAnalysis" component={WSJAnalysisScreen} />
       <Stack.Screen name="WPAnalysis" component={WPAnalysisScreen} />
+      <Stack.Screen name="Topics" component={TopicsScreen} />
+      <Stack.Screen name="NewsSource" component={NewsSourceScreen} />
+
       <Stack.Screen
         name="USATodayAnalysis"
         component={USATodayAnalysisScreen}
@@ -53,8 +57,8 @@ export default function App() {
     async function prepare() {
       try {
         await Font.loadAsync({
-          Cutive: require("./assets/Cutive-Regular.ttf"),
-          Special: require("./assets/SpecialElite-Regular.ttf"),
+          Cutive: require("./assets/Fonts/Cutive-Regular.ttf"),
+          Special: require("./assets/Fonts/SpecialElite-Regular.ttf"),
         });
         await SplashScreen.preventAutoHideAsync();
       } catch (e) {

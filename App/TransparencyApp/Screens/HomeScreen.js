@@ -1,16 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import FinalAnalysis from "./AnalysisScreen";
-import InputInterface from "./components/interface";
-import Search from "./components/search";
-import LoadingScreen from "./loading";
-import Topics from "./components/topics";
+import InputInterface from "../components/interface";
+import Search from "../components/search";
+import LoadingScreen from "./LoadingScreen";
 import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
-import Fonts from "./assets/fonts";
-import Shadows from "./assets/shadow";
-import SliderScore from "./components/sliderScore";
-import axios from "axios";
-import SlidingRow from "./components/slidingRow";
+import Fonts from "../assets/fonts";
+import Shadows from "../assets/shadow";
+import { useNavigation } from "@react-navigation/native";
+import NavigationBar from "../components/navigationBar";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -27,26 +22,23 @@ import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   const [appIsReady, setAppIsReady] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [searchURL, changeSearch] = useState(true);
-  const [topButtom, changeTopButton] = useState("URL");
 
   const [articleTopic, changeArticle] = React.useState("");
   const [newsSource, changeNews] = React.useState("");
   const [url, changeURL] = React.useState("");
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  const [buttonList, changeList] = useState([]);
 
   useEffect(() => {
     async function prepare() {
       try {
         await Font.loadAsync({
-          Cutive: require("./assets/Cutive-Regular.ttf"),
-          Special: require("./assets/SpecialElite-Regular.ttf"),
+          Cutive: require("../assets/Fonts/Cutive-Regular.ttf"),
+          Special: require("../assets/Fonts/SpecialElite-Regular.ttf"),
         });
       } catch (e) {
         console.warn(e);
@@ -82,6 +74,7 @@ export default function HomeScreen() {
       changeSearch(mode === "URL");
     }
   };
+
   const handleAnalysis = () => {
     navigation.navigate("FinalAnalysis", {
       articleTopic: articleTopic,
@@ -100,6 +93,12 @@ export default function HomeScreen() {
   } else {
     return (
       <SafeAreaView style={styles.container}>
+        <NavigationBar />
+
+        <View style={styles.titleSquare}>
+          <Text style={styles.title}>TransparencyGPT</Text>
+          <Text style={styles.title2}>Know what you are reading!</Text>
+        </View>
         <View style={styles.top}>
           <Pressable
             style={[styles.toggleButton, searchURL ? styles.activeButton : {}]}
@@ -111,7 +110,7 @@ export default function HomeScreen() {
                 searchURL ? styles.activeButtonText : {},
               ]}
             >
-              URL
+              Search by URL
             </Text>
           </Pressable>
           <Pressable
@@ -124,13 +123,9 @@ export default function HomeScreen() {
                 !searchURL ? styles.activeButtonText : {},
               ]}
             >
-              Article
+              Search by Title
             </Text>
           </Pressable>
-        </View>
-        <View style={styles.titleSquare}>
-          <Text style={styles.title}>TransparencyGPT</Text>
-          <Text style={styles.title2}>Know what you are reading!</Text>
         </View>
         <View style={styles.searchSection}>
           <InputInterface
@@ -143,20 +138,6 @@ export default function HomeScreen() {
             changeURL={changeURL}
           ></InputInterface>
         </View>
-
-        <View style={styles.topicsView}>
-          <Topics
-            buttonList={buttonList}
-            changeList={changeList}
-            setAnalysisResult={setAnalysisResult}
-            setIsLoading={setIsLoading}
-            setIsAnalyzed={setIsAnalyzed}
-            displayError={displayError}
-          ></Topics>
-        </View>
-        <SafeAreaView style={styles.slidingRow}>
-          <SlidingRow items={items} />
-        </SafeAreaView>
 
         <View style={styles.buttonView}>
           <Search

@@ -5,11 +5,14 @@ import {
   Text,
   ScrollView,
   Pressable,
+  Dimensions,
 } from "react-native";
 import Fonts from "../assets/fonts";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+
+const screenWidth = Dimensions.get("window").width;
 
 function Topics(props) {
   const navigation = useNavigation(); // Use the navigation hook
@@ -69,10 +72,10 @@ function Topics(props) {
               }}
             >
               <Pressable
-                style={styles.buttonContainer}
+                style={styles.card}
                 onPress={() => clickFunction(item)}
               >
-                <View style={{ justifyContent: "center" }}>
+                <View>
                   <Text style={styles.title}>{item.title}</Text>
                 </View>
               </Pressable>
@@ -109,6 +112,24 @@ const styles = StyleSheet.create({
     ...Fonts.subtitle,
     fontSize: 14,
     textAlign: "center",
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  card: {
+    flex: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 5,
+    marginBottom: 20,
   },
 });
 

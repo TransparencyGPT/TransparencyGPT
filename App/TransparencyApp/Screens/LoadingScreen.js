@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, Animated } from "react-native";
-import Fonts from "./assets/fonts";
+import Fonts from "../assets/fonts";
 
 const funFacts = [
   "Since 1929, 40 per cent of the newspapers in the United States hare either closed up shop or been consolidated into a newspaper chain. ",
@@ -43,7 +43,7 @@ export default function LoadingScreen() {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={require("./assets/transparencyGPT-logo.jpg")}
+        source={require("../assets/transparencyGPT-logo.jpg")}
         style={[styles.icon, { transform: [{ rotate: rotationInterpolate }] }]}
       />
       <View style={styles.textContainer}>
