@@ -28,8 +28,6 @@ function SlidingRow({ items }) {
 
   return (
     <View>
-      <Text style={styles.title}>Popular News Sources</Text>
-
       <FlatList
         data={items} // Pass the items array as data
         renderItem={renderItem} // Specify how to render each item
@@ -43,11 +41,6 @@ function SlidingRow({ items }) {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    ...Fonts.subtitle,
-    fontSize: 20,
-    textAlign: "center",
-  },
   logo: {
     width: "100%",
     height: "100%",
@@ -57,7 +50,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   sliderItem: {
-    marginTop: 10,
+    marginTop: 40,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
@@ -67,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     ...Shadows.basicShadow,
-    height: "40%",
+    height: "50%",
   },
 });
 

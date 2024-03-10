@@ -1,77 +1,86 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, TouchableOpacity, Animated, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  Text,
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../assets/colors";
+import Shadows from "../assets/shadow";
+// Import BlurView from 'expo-blur' if you're using Expo
+// import { BlurView } from 'expo-blur';
 
-const NavigationBar = () => {
+const NavigationBar = ({ current }) => {
+  const icons = [
+    { name: "trending-up", screen: "Topics" },
+    { name: "search-web", screen: "Home" },
+    { name: "newspaper-variant-multiple", screen: "NewsSource" },
+  ];
   const navigation = useNavigation();
-
-  // Create an object that holds animated values for each icon
-  const animations = {
-    "view-list-outline": useRef(new Animated.Value(0)).current,
-    "briefcase-search-outline": useRef(new Animated.Value(0)).current,
-    "newspaper-variant-multiple": useRef(new Animated.Value(0)).current,
-  };
 
   const [selected, setSelected] = useState(null);
 
-  const handlePress = (iconName) => {
-    // Perform the navigation based on the icon pressed
-    switch (iconName) {
-      case "view-list-outline":
-        navigation.navigate("Topics");
-        Animated.spring(animations["view-list-outline"], {
-          toValue: 1,
-          friction: 3,
-          useNativeDriver: true,
-        }).start();
-        break;
-      case "briefcase-search-outline":
-        navigation.navigate("Home");
-        Animated.spring(animations["briefcase-search-outline"], {
-          toValue: 1,
-          friction: 3,
-          useNativeDriver: true,
-        }).start();
-        break;
-      case "newspaper-variant-multiple":
-        navigation.navigate("NewsSource");
-        Animated.spring(animations["newspaper-variant-multiple"], {
-          toValue: 1,
-          friction: 3,
-          useNativeDriver: true,
-        }).start();
-        break;
+  const handlePress = (iconName, index) => {
+    setSelected(index);
+
+    const icon = icons.find((i) => i.name === iconName);
+    if (icon) {
+      navigation.navigate(icon.screen);
     }
   };
 
-  const getAnimatedStyle = (iconName) => ({
-    transform: [
-      {
-        translateY: animations[iconName].interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -15], // Icon moves up by 15
-        }),
-      },
-    ],
-  });
+  const iconStyle = (name) => {
+    if (name === current) {
+      return styles.floatingIcon;
+    } else {
+      return styles.icon;
+    }
+  };
+  const viewStyle = (name) => {
+    if (name === current) {
+      return styles.floatingView;
+    } else {
+      return styles.View;
+    }
+  };
 
   return (
-    <View style={styles.navBar}>
-      {Object.keys(animations).map((iconName) => (
-        <TouchableOpacity
-          key={iconName}
-          style={styles.touchableArea}
-          onPress={() => handlePress(iconName)}
-        >
-          <Animated.View
-            style={selected === iconName ? getAnimatedStyle : undefined}
+    <View
+      style={{
+        paddingHorizontal: 34,
+        paddingBottom: 20,
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+      }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingHorizontal: 15,
+          marginTop: 20,
+          marginBottom: 20,
+          width: "100%",
+        }}
+      >
+        {icons.map((icon, index) => (
+          <TouchableOpacity
+            key={icon.name}
+            style={styles.touchableArea}
+            onPress={() => handlePress(icon.name, index)}
           >
-            <Icon name={iconName} style={styles.icon} />
-          </Animated.View>
-        </TouchableOpacity>
-      ))}
+            <View style={viewStyle(icon.name)}>
+              <Icon name={icon.name} style={iconStyle(icon.name)} />
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 };
@@ -79,24 +88,26 @@ const NavigationBar = () => {
 export default NavigationBar;
 
 const styles = StyleSheet.create({
-  navBar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    height: 50, // Adjust the height as needed
-    marginBottom: 0,
-  },
   touchableArea: {
     flex: 1,
-    alignItems: "center", // Center the icon horizontally
-    justifyContent: "center", // Center the icon vertically
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 20,
-    marginHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
   icon: {
-    color: "#000",
-    fontSize: 30, // Adjust the size as needed
+    fontSize: 35,
+  },
+  floatingIcon: {
+    fontSize: 45,
+    color: "white",
+  },
+  floatingView: {
+    ...Shadows.basicShadow,
+    backgroundColor: "black",
+    padding: 10,
+    borderRadius: 50,
+  },
+  View: {
+    padding: 10,
+    borderRadius: 50,
   },
 });

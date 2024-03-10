@@ -93,8 +93,6 @@ export default function HomeScreen() {
   } else {
     return (
       <SafeAreaView style={styles.container}>
-        <NavigationBar />
-
         <View style={styles.titleSquare}>
           <Text style={styles.title}>TransparencyGPT</Text>
           <Text style={styles.title2}>Know what you are reading!</Text>
@@ -152,6 +150,7 @@ export default function HomeScreen() {
             onAnalysisComplete={handleAnalysis}
           />
         </View>
+        <NavigationBar current={"search-web"} />
       </SafeAreaView>
     );
   }
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   searchSection: {
-    flex: 2.4,
+    flex: 2,
     marginBottom: 1,
   },
 
@@ -187,7 +186,8 @@ const styles = StyleSheet.create({
   },
 
   buttonView: {
-    flex: 1,
+    flex: 3,
+    marginBottom: 20,
   },
 
   top: {

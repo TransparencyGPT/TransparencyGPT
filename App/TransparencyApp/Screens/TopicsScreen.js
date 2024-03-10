@@ -16,8 +16,6 @@ export default TopicsScreen = ({ route, navigation }, ...props) => {
 
   return (
     <SafeAreaView style={styles.topicsView}>
-      <NavigationBar />
-
       <Topics
         buttonList={buttonList}
         changeList={changeList}
@@ -26,15 +24,20 @@ export default TopicsScreen = ({ route, navigation }, ...props) => {
         setIsAnalyzed={setIsAnalyzed}
         displayError={displayError}
       />
-      <View style={styles.buttomView}>
+
+      <View style={styles.buttonView}>
         <Pressable style={styles.buttonContainer} onPress={backButton}>
           <Text style={styles.buttonText}>BACK</Text>
         </Pressable>
       </View>
+      <NavigationBar current={"trending-up"} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   topicsView: {},
+  buttonView: {
+    flex: 1,
+  },
 });
