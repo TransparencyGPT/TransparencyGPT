@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image, Animated } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Animated,
+  SafeAreaView,
+} from "react-native";
 import Fonts from "../assets/fonts";
 
 const funFacts = [
-  "Since 1929, 40 per cent of the newspapers in the United States hare either closed up shop or been consolidated into a newspaper chain. ",
+  "Since 1929, 40 per cent of the newspapers in the United States have either closed up shop or been consolidated into a newspaper chain.",
   "Fake news examples have also come in the form of hoaxes, such as Orson Welles’ notorious 1938 radio broadcast about an alien invasion that led many listeners to panic.",
-  " In a six-week period around the time of the 2016 presidential election, research suggests that as many as 25% of Americans visited a fake news website.",
+  "In a six-week period around the time of the 2016 presidential election, research suggests that as many as 25% of Americans visited a fake news website.",
   "An analysis of Facebook news around this same election found that the top 20 fake news stories generated more engagement than the top 20 credible news stories (from major news outlets)",
+  "Studies show that confirmation bias, the tendency to process information by looking for, or interpreting, information that is consistent with one’s existing beliefs, significantly contributes to the spread of misinformation.",
+  "Research indicates that false stories spread more rapidly on the internet than true ones do.",
+  "The concept of 'echo chambers' – where users are exposed only to opinions and information that conform to their existing beliefs – can exacerbate the spread of misinformation.",
+  "Fact-checking services and initiatives have grown in response to misinformation, but studies suggest they are often ignored by audiences already entrenched in their beliefs.",
 ];
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+}
+
 export default function LoadingScreen() {
   const [fact, setFact] = useState(funFacts[0]);
   const rotation = new Animated.Value(0);
@@ -23,16 +42,17 @@ export default function LoadingScreen() {
   spin();
 
   useEffect(() => {
+    shuffleArray(funFacts); // Shuffle the facts
+    setFact(funFacts[0]); // Set the first fact after shuffling
+
     let intervalId = setInterval(() => {
-      setFact(
-        (prevFact) =>
-          funFacts[(funFacts.indexOf(prevFact) + 1) % funFacts.length]
-      );
+      setFact((prevFact) => {
+        const nextIndex = (funFacts.indexOf(prevFact) + 1) % funFacts.length;
+        return funFacts[nextIndex];
+      });
     }, 8000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
+    return () => clearInterval(intervalId);
   }, []);
 
   const rotationInterpolate = rotation.interpolate({
@@ -41,7 +61,7 @@ export default function LoadingScreen() {
   });
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Animated.Image
         source={require("../assets/transparencyGPT-logo.jpg")}
         style={[styles.icon, { transform: [{ rotate: rotationInterpolate }] }]}
@@ -50,7 +70,7 @@ export default function LoadingScreen() {
         <Text style={styles.loadingText}>LOADING...</Text>
         <Text style={styles.factText}>{fact}</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

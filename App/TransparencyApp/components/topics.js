@@ -12,6 +12,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Shadows from "../assets/shadow";
+import LoadingScreen from "../Screens/LoadingScreen";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -31,10 +32,6 @@ function Topics(props) {
     } catch (error) {
     } finally {
     }
-  };
-
-  let clickFunction = (item) => {
-    fetchAnalysis(item.url);
   };
 
   const fetchAnalysis = async (url) => {
@@ -70,7 +67,10 @@ function Topics(props) {
               padding: 10,
             }}
           >
-            <Pressable style={styles.card} onPress={() => clickFunction(item)}>
+            <Pressable
+              style={styles.card}
+              onPress={() => fetchAnalysis(item.url)}
+            >
               <View>
                 <Text style={styles.title}>{item.title}</Text>
               </View>

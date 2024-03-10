@@ -5,6 +5,8 @@ import Colors from "../assets/colors";
 import NavigationBar from "../components/navigationBar";
 import Fonts from "../assets/fonts";
 import Shadows from "../assets/shadow";
+import LoadingScreen from "../Screens/LoadingScreen";
+
 export default TopicsScreen = ({ route, navigation }, ...props) => {
   const [error, displayError] = useState(false);
   const [buttonList, changeList] = useState([]);
@@ -16,26 +18,30 @@ export default TopicsScreen = ({ route, navigation }, ...props) => {
     navigation.goBack();
   };
 
-  return (
-    <SafeAreaView style={styles.topicsView}>
-      <View style={styles.titleSquare}>
-        <Text style={styles.title}>Popular Topics</Text>
-      </View>
-      <View style={styles.searchSection}>
-        <Topics
-          buttonList={buttonList}
-          changeList={changeList}
-          setAnalysisResult={setAnalysisResult}
-          setIsLoading={setIsLoading}
-          setIsAnalyzed={setIsAnalyzed}
-          displayError={displayError}
-        />
-      </View>
+  if (isLoading) {
+    return <LoadingScreen />;
+  } else {
+    return (
+      <SafeAreaView style={styles.topicsView}>
+        <View style={styles.titleSquare}>
+          <Text style={styles.title}>Popular Topics</Text>
+        </View>
+        <View style={styles.searchSection}>
+          <Topics
+            buttonList={buttonList}
+            changeList={changeList}
+            setAnalysisResult={setAnalysisResult}
+            setIsLoading={setIsLoading}
+            setIsAnalyzed={setIsAnalyzed}
+            displayError={displayError}
+          />
+        </View>
 
-      <View style={styles.buttonView}></View>
-      <NavigationBar current={"trending-up"} />
-    </SafeAreaView>
-  );
+        <View style={styles.buttonView}></View>
+        <NavigationBar current={"trending-up"} />
+      </SafeAreaView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

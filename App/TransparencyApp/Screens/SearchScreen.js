@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
   pickerContainer: {
     height: 50,
     width: 150,
+    borderRadius: 4,
     margin: 20,
     borderWidth: 2,
     justifyContent: "center",
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
   },
 
   dropdownStyle: {
-    width: 152,
+    width: 150,
     height: 60,
     marginLeft: 13,
     backgroundColor: "black",
@@ -170,6 +171,7 @@ const styles = StyleSheet.create({
   dropdownRow: {
     paddingHorizontal: 10,
     paddingVertical: 10,
+    height: 40,
   },
   dropdownRowText: {
     ...Fonts.subtitle,
