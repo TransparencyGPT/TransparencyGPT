@@ -11,6 +11,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
+  Image,
   TouchableOpacity,
   Text,
   View,
@@ -41,6 +42,17 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Image
+        source={require("../assets/transparencyGPT-logo.jpg")}
+        style={{
+          aspectRatio: 1,
+          height: 100,
+          width: 100,
+          borderRadius: 50,
+          marginTop: 40,
+          alignSelf: "center",
+        }}
+      />
       <View style={styles.titleSquare}>
         <Text style={styles.title}>TransparencyGPT</Text>
         <Text style={styles.title2}>Know what you are reading!</Text>
@@ -62,7 +74,16 @@ export default function HomeScreen() {
           onPress={() => handlePress("search-web")}
         >
           <View style={styles.bar}>
-            <Icon name={"search-web"} style={{ fontSize: 50 }} />
+            <Image
+              source={require("../assets/transparencyGPT-logo.jpg")}
+              style={{
+                aspectRatio: 1,
+                height: 50,
+                width: 50,
+                borderRadius: 50,
+                marginRight: 5,
+              }}
+            />
             <Text style={{ ...Fonts.loading }}> Analyze Articles </Text>
           </View>
         </TouchableOpacity>
@@ -98,26 +119,26 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
   },
 
   titleSquare: {
+    marginTop: 30,
     alignItems: "center",
-    margin: 7,
     borderRadius: 10,
   },
   title: {
     ...Fonts.title,
-    color: "white",
+    color: "black",
   },
   title2: {
     ...Fonts.subtitle,
-    color: "white",
+    color: "black",
   },
 
   main: {
+    marginVertical: "15%",
     flexDirection: "column",
-    flex: 20,
     justifyContent: "center",
     alignItems: "center",
   },

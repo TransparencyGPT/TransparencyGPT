@@ -5,6 +5,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Text,
+  Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
@@ -34,7 +35,11 @@ const NavigationBar = ({ current }) => {
 
   const iconStyle = (name) => {
     if (name === current) {
-      return styles.floatingIcon;
+      if (name == "search-web") {
+        return styles.floatingLogo;
+      } else {
+        return styles.floatingIcon;
+      }
     } else {
       return styles.icon;
     }
@@ -76,7 +81,20 @@ const NavigationBar = ({ current }) => {
             onPress={() => handlePress(icon.name, index)}
           >
             <View style={viewStyle(icon.name)}>
-              <Icon name={icon.name} style={iconStyle(icon.name)} />
+              {icon.name == "search-web" ? (
+                <Image
+                  source={require("../assets/transparencyGPT-logo.jpg")}
+                  style={StyleSheet.compose({
+                    ...iconStyle(icon.name),
+                    aspectRatio: 1,
+                    height: 40,
+                    width: 40,
+                    borderRadius: 50,
+                  })}
+                />
+              ) : (
+                <Icon name={icon.name} style={iconStyle(icon.name)} />
+              )}
             </View>
           </TouchableOpacity>
         ))}
@@ -89,7 +107,7 @@ export default NavigationBar;
 
 const styles = StyleSheet.create({
   touchableArea: {
-    flex: 1,
+    flex: 2,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -107,7 +125,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   View: {
-    padding: 10,
+    borderRadius: 50,
+  },
+  floatingLogo: {
+    aspectRatio: 1,
+    height: 60,
+    width: 60,
     borderRadius: 50,
   },
 });

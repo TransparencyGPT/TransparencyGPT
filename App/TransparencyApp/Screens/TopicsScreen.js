@@ -19,7 +19,7 @@ export default TopicsScreen = ({ route, navigation }, ...props) => {
   return (
     <SafeAreaView style={styles.topicsView}>
       <View style={styles.titleSquare}>
-        <Text style={styles.title}>Topics</Text>
+        <Text style={styles.title}>Popular Topics</Text>
       </View>
       <View style={styles.searchSection}>
         <Topics
