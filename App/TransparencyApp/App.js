@@ -61,6 +61,7 @@ export default function App() {
         await Font.loadAsync({
           Cutive: require("./assets/Fonts/Cutive-Regular.ttf"),
           Special: require("./assets/Fonts/SpecialElite-Regular.ttf"),
+          Cutive_Mono: require("./assets/Fonts/CutiveMono-Regular.ttf"),
         });
         await SplashScreen.preventAutoHideAsync();
       } catch (e) {

@@ -41,7 +41,11 @@ const NavigationBar = ({ current }) => {
         return styles.floatingIcon;
       }
     } else {
-      return styles.icon;
+      if (name == "search-web") {
+        return styles.logo;
+      } else {
+        return styles.icon;
+      }
     }
   };
   const viewStyle = (name) => {
@@ -114,6 +118,12 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 35,
   },
+  logo: {
+    aspectRatio: 1,
+    height: 40,
+    width: 40,
+    borderRadius: 50,
+  },
   floatingIcon: {
     fontSize: 45,
     color: "white",
@@ -129,8 +139,8 @@ const styles = StyleSheet.create({
   },
   floatingLogo: {
     aspectRatio: 1,
-    height: 60,
-    width: 60,
+    height: 65,
+    width: 65,
     borderRadius: 50,
   },
 });

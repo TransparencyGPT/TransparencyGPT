@@ -6,6 +6,8 @@ import Fonts from "../assets/fonts";
 import Shadows from "../assets/shadow";
 import { useNavigation } from "@react-navigation/native";
 import NavigationBar from "../components/navigationBar";
+import { Picker } from "@react-native-picker/picker";
+import ModalDropdown from "react-native-modal-dropdown";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -15,6 +17,7 @@ import {
   SafeAreaView,
   Pressable,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -28,37 +31,12 @@ export default function HomeScreen() {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [searchURL, changeSearch] = useState(true);
+  const [isPickerVisible, setPickerVisible] = useState(false);
 
   const [articleTopic, changeArticle] = React.useState("");
   const [newsSource, changeNews] = React.useState("");
   const [url, changeURL] = React.useState("");
-
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await Font.loadAsync({
-          Cutive: require("../assets/Fonts/Cutive-Regular.ttf"),
-          Special: require("../assets/Fonts/SpecialElite-Regular.ttf"),
-        });
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setAppIsReady(true);
-      }
-    }
-
-    prepare();
-  }, []);
-
-  useEffect(() => {
-    if (appIsReady) {
-      SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return null;
-  }
+  const [searchMode, setSearchMode] = useState("URL");
 
   let displayError = () => {
     const createTwoButtonAlert = () =>
@@ -94,33 +72,36 @@ export default function HomeScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.top}>
-          <Pressable
-            style={[styles.toggleButton, searchURL ? styles.activeButton : {}]}
-            onPress={() => toggleSearchMode("URL")}
-          >
-            <Text
-              style={[
-                styles.toggleButtonText,
-                searchURL ? styles.activeButtonText : {},
-              ]}
-            >
-              Search by URL
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[styles.toggleButton, !searchURL ? styles.activeButton : {}]}
-            onPress={() => toggleSearchMode("Article")}
-          >
-            <Text
-              style={[
-                styles.toggleButtonText,
-                !searchURL ? styles.activeButtonText : {},
-              ]}
-            >
-              Search by Title
-            </Text>
-          </Pressable>
+          <View style={styles.pickerContainer}>
+            <Text style={styles.pickerLabel}>Search by:</Text>
+            <ModalDropdown
+              options={["URL", "Title"]}
+              defaultValue={"URL"}
+              onSelect={(index, value) => toggleSearchMode(value)}
+              dropdownStyle={styles.dropdownStyle}
+              textStyle={styles.dropdownText}
+              defaultIndex={0}
+              adjustFrame={(style) => {
+                style.top += 5;
+                style.left -= 15;
+                return style;
+              }}
+              renderRow={(option, index, isSelected) => (
+                <View style={styles.dropdownRow}>
+                  <Text
+                    style={[
+                      styles.dropdownRowText,
+                      isSelected && styles.selectedRow,
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </View>
+              )}
+            />
+          </View>
         </View>
+
         <View style={styles.searchSection}>
           <InputInterface
             searchURL={searchURL}
@@ -153,12 +134,6 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  slidingRow: {
-    flex: 3,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
   container: {
     flex: 1,
     backgroundColor: "white",
@@ -167,7 +142,54 @@ const styles = StyleSheet.create({
     flex: 2,
     marginBottom: 1,
   },
+  pickerContainer: {
+    height: 50,
+    width: 150,
+    margin: 20,
+    borderWidth: 2,
+    justifyContent: "center",
+    flexDirection: "column",
+    backgroundColor: "white",
+    ...Shadows.basicShadow,
+  },
 
+  dropdownStyle: {
+    width: 152,
+    height: 60,
+    marginLeft: 13,
+    backgroundColor: "black",
+    borderBottomColor: "black",
+    borderRadius: 6,
+  },
+  dropdownText: {
+    ...Fonts.subtitle,
+    fontSize: 16,
+    paddingHorizontal: 6,
+    paddingVertical: 10,
+  },
+  dropdownRow: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+  dropdownRowText: {
+    ...Fonts.subtitle,
+    color: "gray",
+    fontSize: 16,
+  },
+  selectedRow: {
+    ...Fonts.subtitle,
+    color: "white",
+    fontSize: 16,
+  },
+  pickerLabel: {
+    position: "absolute",
+    backgroundColor: "white",
+    top: -14,
+    left: 10,
+    padding: 5,
+    fontSize: 16,
+    ...Fonts.subtitle,
+  },
   titleSquare: {
     flex: 1.2,
     alignItems: "center",
@@ -204,18 +226,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     ...Shadows.basicShadow,
   },
-  activeButton: {
-    backgroundColor: "black",
-    color: "white",
-  },
-  toggleButtonText: {
-    color: "black",
-    ...Fonts.subtitle,
-    fontSize: 22,
-  },
-  activeButtonText: {
-    color: "white",
-  },
+
   topicsView: {
     flex: 3,
     padding: 10,

@@ -32,7 +32,7 @@ function SlidingRow({ items }) {
         data={items} // Pass the items array as data
         renderItem={renderItem} // Specify how to render each item
         keyExtractor={(item, index) => index.toString()} // Provide a unique key for each item
-        horizontal={true} // Enable horizontal scrolling
+        horizontal={false} // Enable horizontal scrolling
         showsHorizontalScrollIndicator={false} // Hide the horizontal scroll indicator
         contentContainerStyle={styles.slider} // Apply styles to the content container of the FlatList
       />
@@ -53,14 +53,13 @@ const styles = StyleSheet.create({
     marginTop: 40,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 10,
-    marginLeft: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    padding: 20,
     backgroundColor: "white",
     borderRadius: 10,
     ...Shadows.basicShadow,
-    height: "50%",
+    height: 200,
+    width: "auto",
+    marginHorizontal: 40,
   },
 });
 

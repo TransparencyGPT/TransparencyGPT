@@ -15,7 +15,6 @@ export default NewsSourceScreen = ({ route, navigation }, ...props) => {
       <View style={styles.titleSquare}>
         <Text style={styles.title}>Popular News Sources</Text>
       </View>
-      <View style={styles.top}></View>
       <View style={styles.searchSection}>
         <SlidingRow items={items} />
       </View>
@@ -28,28 +27,23 @@ export default NewsSourceScreen = ({ route, navigation }, ...props) => {
 
 const styles = StyleSheet.create({
   slidingRow: {
-    flex: 3,
+    flex: 8,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 40,
   },
   container: {
     flex: 1,
-    backgroundColor: "white",
   },
   searchSection: {
-    flex: 2.4,
-    marginBottom: 1,
+    flex: 8,
+    marginBottom: 10,
+    marginHorizontal: 20,
   },
 
-  titleSquare: {
-    flex: 1.2,
-    alignItems: "center",
-    margin: 7,
-    borderRadius: 10,
-  },
   title: {
+    alignSelf: "center",
     ...Fonts.title,
+    margin: 7,
   },
   title2: {
     ...Fonts.subtitle,
