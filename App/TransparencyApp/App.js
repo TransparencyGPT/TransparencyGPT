@@ -17,6 +17,7 @@ import USATodayAnalysisScreen from "./NewsSources/USATodayAnalysis";
 import TopicsScreen from "./Screens/TopicsScreen";
 import LoadingScreen from "./Screens/LoadingScreen";
 import FinalAnalysis from "./Screens/AnalysisScreen";
+import SearchScreen from "./Screens/SearchScreen";
 import NewsSourceScreen from "./Screens/NewsSourceScreen";
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ function MainStackNavigator() {
       }}
     >
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="NYTAnalysis" component={NYTAnalysisScreen} />
       <Stack.Screen name="CNNAnalysis" component={CNNAnalysisScreen} />
       <Stack.Screen name="BBCAnalysis" component={BBCAnalysisScreen} />

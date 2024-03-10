@@ -16,7 +16,7 @@ import Shadows from "../assets/shadow";
 const NavigationBar = ({ current }) => {
   const icons = [
     { name: "trending-up", screen: "Topics" },
-    { name: "search-web", screen: "Home" },
+    { name: "search-web", screen: "Search" },
     { name: "newspaper-variant-multiple", screen: "NewsSource" },
   ];
   const navigation = useNavigation();
