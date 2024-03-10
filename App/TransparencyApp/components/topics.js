@@ -60,29 +60,23 @@ function Topics(props) {
   };
 
   return (
-    <View style={styles.scaleContainer}>
-      <Text style={styles.topics}>Popular Topics</Text>
-      <View style={styles.ScrollView}>
-        <ScrollView>
-          {props.buttonList.map((item, index) => (
-            <View
-              key={index}
-              style={{
-                padding: 10,
-              }}
-            >
-              <Pressable
-                style={styles.card}
-                onPress={() => clickFunction(item)}
-              >
-                <View>
-                  <Text style={styles.title}>{item.title}</Text>
-                </View>
-              </Pressable>
-            </View>
-          ))}
-        </ScrollView>
-      </View>
+    <View style={styles.ScrollView}>
+      <ScrollView>
+        {props.buttonList.map((item, index) => (
+          <View
+            key={index}
+            style={{
+              padding: 10,
+            }}
+          >
+            <Pressable style={styles.card} onPress={() => clickFunction(item)}>
+              <View>
+                <Text style={styles.title}>{item.title}</Text>
+              </View>
+            </Pressable>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
