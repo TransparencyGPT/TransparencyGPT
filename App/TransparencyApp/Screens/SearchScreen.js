@@ -93,10 +93,6 @@ export default function HomeScreen() {
   } else {
     return (
       <SafeAreaView style={styles.container}>
-        {/*<View style={styles.titleSquare}>
-          <Text style={styles.title}>TransparencyGPT</Text>
-          <Text style={styles.title2}>Know what you are reading!</Text>
-    </View>*/}
         <View style={styles.top}>
           <Pressable
             style={[styles.toggleButton, searchURL ? styles.activeButton : {}]}
@@ -187,17 +183,20 @@ const styles = StyleSheet.create({
 
   buttonView: {
     flex: 3,
-    marginBottom: 20,
+    marginVertical: 20,
   },
 
   top: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
     marginBottom: 10,
   },
   toggleButton: {
+    marginVertical: 20,
+    width: 250,
+    alignItems: "center",
     backgroundColor: "white",
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -210,9 +209,9 @@ const styles = StyleSheet.create({
     color: "white",
   },
   toggleButtonText: {
-    fontSize: 16,
     color: "black",
     ...Fonts.subtitle,
+    fontSize: 22,
   },
   activeButtonText: {
     color: "white",
