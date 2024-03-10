@@ -11,6 +11,7 @@ import Fonts from "../assets/fonts";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import Shadows from "../assets/shadow";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -61,7 +62,7 @@ function Topics(props) {
 
   return (
     <View style={styles.ScrollView}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={true}>
         {props.buttonList.map((item, index) => (
           <View
             key={index}
@@ -103,27 +104,25 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    ...Fonts.subtitle,
-    fontSize: 14,
+    ...Fonts.loading,
+    fontSize: 15,
     textAlign: "center",
   },
-  container: {
+  scrollView: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: "center",
+    width: "100%",
   },
   card: {
-    flex: 3,
-    justifyContent: "center",
-    alignItems: "center",
+    flex: 2,
     backgroundColor: "white",
-    borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 20,
-    elevation: 5,
+    borderRadius: 10,
+    ...Shadows.basicShadow,
+    elevation: 30,
     marginBottom: 20,
+    marginHorizontal: 20,
+    padding: 10,
   },
 });
 

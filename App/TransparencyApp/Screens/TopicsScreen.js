@@ -21,14 +21,16 @@ export default TopicsScreen = ({ route, navigation }, ...props) => {
       <View style={styles.titleSquare}>
         <Text style={styles.title}>Topics</Text>
       </View>
-      <Topics
-        buttonList={buttonList}
-        changeList={changeList}
-        setAnalysisResult={setAnalysisResult}
-        setIsLoading={setIsLoading}
-        setIsAnalyzed={setIsAnalyzed}
-        displayError={displayError}
-      />
+      <View style={styles.searchSection}>
+        <Topics
+          buttonList={buttonList}
+          changeList={changeList}
+          setAnalysisResult={setAnalysisResult}
+          setIsLoading={setIsLoading}
+          setIsAnalyzed={setIsAnalyzed}
+          displayError={displayError}
+        />
+      </View>
 
       <View style={styles.buttonView}></View>
       <NavigationBar current={"trending-up"} />
@@ -48,21 +50,17 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   searchSection: {
-    flex: 2.4,
+    flex: 7,
     marginBottom: 1,
+    marginTop: 0,
   },
 
   titleSquare: {
-    flex: 1.2,
     alignItems: "center",
     margin: 7,
-    borderRadius: 10,
   },
   title: {
     ...Fonts.title,
-  },
-  title2: {
-    ...Fonts.subtitle,
   },
 
   buttonView: {
@@ -74,7 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
-    marginBottom: 10,
   },
   toggleButton: {
     backgroundColor: "white",
