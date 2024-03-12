@@ -10,8 +10,12 @@ import {
 import SliderScore from "../components/sliderScore";
 import Shadows from "../assets/shadow";
 import Fonts from "../assets/fonts";
+import jsonData from "./newsText.json";
 
-function NBCAnalysisScreen({ navigation, route }) {
+function NewsSource({ navigation, route }) {
+  const title = route.params.item;
+  const id = route.params.id;
+
   let backButton = () => {
     navigation.goBack();
   };
@@ -19,17 +23,14 @@ function NBCAnalysisScreen({ navigation, route }) {
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
         <View style={styles.titleView}>
-          <Text style={styles.analysisHead}>Analysis of NBC</Text>
+          <Text style={styles.analysisHead}>Analysis of</Text>
+          <Text style={styles.analysisHead}>{title}</Text>
         </View>
         <View style={styles.middleView}>
           <ScrollView style={styles.scroll}>
             <View style={styles.innerMiddleView}>
               <View style={styles.sectionView}>
-                <SliderScore score={5} />
-              </View>
-              <View style={styles.sectionView}>
-                <Text style={styles.subsection}>Source Analysis:</Text>
-                <Text style={styles.content}>Insert Analysis</Text>
+                <Text style={styles.subsection}>{jsonData[String(id)]}</Text>
               </View>
             </View>
           </ScrollView>
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     padding: 14,
     justifyContent: "center",
     alignItems: "center",
+    width: "90%",
   },
 
   containerEmpty: {
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     width: "93%",
   },
 
-  titleView: { flex: 1.03, alignItems: "center" },
+  titleView: { flex: 1.03, alignItems: "center", marginBottom: 30 },
 
   middleView: { flex: 8 },
 
@@ -118,6 +120,13 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "400",
   },
+
+  scaleContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 20,
+    width: "100%",
+  },
 });
 
-export default NBCAnalysisScreen;
+export default NewsSource;

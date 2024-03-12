@@ -19,7 +19,9 @@ function SlidingRow({ items }) {
   const renderItem = ({ item, index }) => (
     <Pressable
       key={index}
-      onPress={() => navigation.navigate(item.page)} // Corrected this line
+      onPress={() =>
+        navigation.navigate(item.page, { item: item.title, id: item.page })
+      } // Corrected this line
       style={styles.sliderItem}
     >
       <Image source={item.source} style={styles.logo} />
