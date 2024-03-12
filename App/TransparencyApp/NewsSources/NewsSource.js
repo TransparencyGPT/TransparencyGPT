@@ -23,8 +23,8 @@ function NewsSource({ navigation, route }) {
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
         <View style={styles.titleView}>
-          <Text style={styles.analysisHead}>Analysis of</Text>
-          <Text style={styles.analysisHead}>{title}</Text>
+          <Text style={styles.analysisHeadTop}>Analysis of</Text>
+          <Text style={styles.analysisHeadBottom}>{title}</Text>
         </View>
         <View style={styles.middleView}>
           <ScrollView style={styles.scroll}>
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "90%",
+    flex: 1,
   },
 
   containerEmpty: {
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     width: "93%",
   },
 
-  titleView: { flex: 1.03, alignItems: "center", marginBottom: 30 },
+  titleView: { flex: 1.29, alignItems: "center" },
 
   middleView: { flex: 8 },
 
@@ -97,12 +98,18 @@ const styles = StyleSheet.create({
     color: "black",
   },
 
-  analysisHead: {
-    fontSize: 22,
-    color: "black",
+  analysisHeadTop: {
+    fontSize: 30,
     fontWeight: "bold",
     marginTop: 4,
-    ...Fonts.title,
+    fontFamily: "Special",
+  },
+
+  analysisHeadBottom: {
+    fontSize: 25,
+    fontWeight: "bold",
+    marginTop: 4,
+    fontFamily: "Special",
   },
 
   sectionView: {
