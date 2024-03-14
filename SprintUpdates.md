@@ -1,3 +1,19 @@
+Sprint 4 (Final) Updates:
+
+Alberto Mancarella  
+
+These few weeks, I focused on adding final features and polishing the app before presenting it! I reviewed NewsAPI and utilized it to fetch the top topics in the U.S. I achieved this by utilizing the NewsAPI get_top_headlines method in a Flask Python script. 
+This Python script was implemented to get the content for these top headlines. Using this content, I implemented a ScrollView where the top headline title and its source are displayed for each article in this "Popular Topics" section of the app. I also worked on being able to analyze each individual article by clicking on the article itself in this ScrollView and dynamically transitioning to the "analysis" page of the pap. This was done by getting the URL (from NewsAPI) and sending it to our same pipeline, which analyzes an article based on URL input. In addition to this, I also worked on the “Popular News Sources” screen, building off of Lucy’s work. Previously, every single news source had its own javascript file (1 file for nbc, one for cnn, etc.). I implemented a  system where each news source now utilizes one javascript file.  In addition, I added the actual analysis of each news source Nico sent to the app. Last but not least,  I did extensive testing where I looked for bugs in time for the final presentation and fixed the bugs that I found. I added an alert feature if the URL for a top headline article is unavailable when attempting to analyze the article.
+
+Sadly, the course is over, so there’s not much to update you on what I’ll be doing next, haha!
+
+
+
+
+
+
+_________________________________________________________________________________________________________________________________________________________________________________________
+
 Sprint 3 Updates:
 
 Lucy Zimmerman: 
