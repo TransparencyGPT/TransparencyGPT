@@ -6,6 +6,7 @@ import {
   ScrollView,
   Pressable,
   Dimensions,
+  Alert,
 } from "react-native";
 import Fonts from "../assets/fonts";
 import axios from "axios";
@@ -52,6 +53,9 @@ function Topics(props) {
     } catch (error) {
       props.setAnalysisResult({ error: "Failed to fetch analysis" });
       props.displayError();
+      Alert.alert("Couldn't Find Article!", "Please Try Another Article!", [
+        { text: "OK" },
+      ]);
     } finally {
       props.setIsLoading(false);
     }

@@ -37,7 +37,11 @@ def analyze_text():
         url = parsed.get("url")
         print(url)
 
-    response2 = requests.get(url)
+    try:
+        response2 = requests.get(url)
+    except:
+        return jsonify({"error": "No article provided"}), 400
+
     html_content = response2.text
     soup = BeautifulSoup(html_content, "html.parser")
 
@@ -59,7 +63,9 @@ def analyze_text():
     )
 
     article_text = ""
+
     for paragraph in soup.find_all("p"):
+        print("asdfasdf")
         article_text += paragraph.get_text().strip() + " "
 
     if not article_text:

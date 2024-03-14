@@ -28,7 +28,6 @@ function Search(props) {
 
       navigation.navigate("FinalAnalysis", { analysisResult: response.data });
     } catch (error) {
-      console.error("Error fetching analysis:", error);
       props.setAnalysisResult({ error: "Failed to fetch analysis" });
       props.displayError();
     } finally {
