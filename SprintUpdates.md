@@ -8,8 +8,13 @@ This Python script was implemented to get the content for these top headlines. U
 Sadly, the course is over, so there’s not much to update you on what I’ll be doing next, haha!
 
 
+Nicolas Friley:
 
+During sprint 4, I made modifications to the Python scripts to enhance flexibility in output formatting and seamless integration with front-end JavaScript code. This approach facilitated the organization of the final output into distinct categories encompassing various aspects. These categories include bias analysis in the article, information about the author, details about the website, and insights into the media company. Specifically, I ensured that the scripts would deliver analysis in multiple elements, allowing for collapsible/expandable windows and facilitating a more user-friendly experience.
 
+Moreover, I conducted thorough research and composed content related to bias analysis and conflicts of interest concerning the eight main media sources displayed on the Home Screen. This content fits in with a functionality that enables users to click on any media company logo and access directly all information about the potential infusion of bias in their articles, based on political and financial affiliations.
+
+Lastly, in preparation for presentation day, I contributed to the design of the poster, paying particular attention to the wording and layout to effectively convey our message.
 
 
 _________________________________________________________________________________________________________________________________________________________________________________________
