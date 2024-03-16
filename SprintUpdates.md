@@ -1,4 +1,7 @@
 Sprint 4 (Final) Updates:
+Lucy Zimmerman:
+
+During this sprint, I completely revamped the user interface, bringing a fresh look and enhanced usability to our project. I introduced routing and meticulously crafted pages specifically for search functionalities, ensuring a seamless and intuitive user experience. I also added a navigation bar, thoughtfully integrating the logo to strengthen our brand identity. This all resulted in rigorous sorting of the codebase, cleaning and sorting the code to separate out different components and pages. An initial base screen was set up, serving as the cornerstone for navigation within the app. In an effort to engage users during loading times, I randomized the algorithm that presents fun facts about misinformation, and I expanded our collection with additional intriguing facts. Moreover, I took a significant step by creating individual pages for each news source, allowing me to encode the bias directly into these pages. This not only enriches our content but also offers users a deeper understanding of the perspectives behind the news. I also completed testing for the app as a final runthrough of the app.
 
 Alberto Mancarella  
 
