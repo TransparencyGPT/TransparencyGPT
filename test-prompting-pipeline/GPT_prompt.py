@@ -10,7 +10,7 @@ def web_analysis(author, url, topics):
 
     # Define model name and hyperparameters
     model="gpt-3.5-turbo"
-    client = OpenAI(api_key="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")
+    client = OpenAI(api_key="")
     temperature = 0.2 
 
     # Define your prompts

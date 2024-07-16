@@ -28,7 +28,7 @@ def extract_transparency(file_path):
     combined_answer = text_analysis + "\n" + GPT_answer
 
     # Define model name and hyperparameters
-    client = OpenAI(api_key="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")
+    client = OpenAI(api_key="")
     model = "gpt-3.5-turbo" 
     temperature = 0.2 
 

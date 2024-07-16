@@ -1,4 +1,7 @@
 Sprint 4 (Final) Updates:
+Lucy Zimmerman:
+
+During this sprint, I completely revamped the user interface, bringing a fresh look and enhanced usability to our project. I introduced routing and meticulously crafted pages specifically for search functionalities, ensuring a seamless and intuitive user experience. I also added a navigation bar, thoughtfully integrating the logo to strengthen our brand identity. This all resulted in rigorous sorting of the codebase, cleaning and sorting the code to separate out different components and pages. An initial base screen was set up, serving as the cornerstone for navigation within the app. In an effort to engage users during loading times, I randomized the algorithm that presents fun facts about misinformation, and I expanded our collection with additional intriguing facts. Moreover, I took a significant step by creating individual pages for each news source, allowing me to encode the bias directly into these pages. This not only enriches our content but also offers users a deeper understanding of the perspectives behind the news. I also completed testing for the app as a final runthrough of the app.
 
 Alberto Mancarella  
 
@@ -8,8 +11,13 @@ This Python script was implemented to get the content for these top headlines. U
 Sadly, the course is over, so there’s not much to update you on what I’ll be doing next, haha!
 
 
+Nicolas Friley:
 
+During sprint 4, I made modifications to the Python scripts to enhance flexibility in output formatting and seamless integration with front-end JavaScript code. This approach facilitated the organization of the final output into distinct categories encompassing various aspects. These categories include bias analysis in the article, information about the author, details about the website, and insights into the media company. Specifically, I ensured that the scripts would deliver analysis in multiple elements, allowing for collapsible/expandable windows and facilitating a more user-friendly experience.
 
+Moreover, I conducted thorough research and composed content related to bias analysis and conflicts of interest concerning the eight main media sources displayed on the Home Screen. This content fits in with a functionality that enables users to click on any media company logo and access directly all information about the potential infusion of bias in their articles, based on political and financial affiliations.
+
+Lastly, in preparation for presentation day, I contributed to the design of the poster, paying particular attention to the wording and layout to effectively convey our message.
 
 
 _________________________________________________________________________________________________________________________________________________________________________________________
