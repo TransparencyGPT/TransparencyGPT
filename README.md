@@ -1,9 +1,8 @@
-# TransparencyGPT Technical Details:
+Our working app demo and accompanying readme for the app is within the "App" Folder:\
+\
+Expo Go is necessary for the set up for the demo at this point.\
+Follow this guide to set it up: https://docs.expo.dev/get-started/installation/\
 
-# installation: run "pip install requests pdfkit beautifulsoup4 openai tiktoken PyPDF2"
 
-# Also, you'll need to have wkhtmltopdf installed on your system as pdfkit relies on it. Instructions for installing wkhtmltopdf can be found at wkhtmltopdf.org.
+video demo: https://drive.google.com/file/d/1qEy-XOSDa6n5D3zSNr-KILHvBzqxOO1v/view?resourcekey
 
-# To test, run "python3 webRetrieve.py" inputting a valid URL of a non-subscription based news site. # Then run "python3 webRetrieve.py" which accesses that PDF
-
-# OpenAI API's keys need to be set up so we can work with the prompts. This has not yet been enabled. # Need Credits
